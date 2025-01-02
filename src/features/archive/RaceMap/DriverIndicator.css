@@ -1,0 +1,32 @@
+/* DriverIndicator.css */
+
+.driver_indicator {
+    position: absolute;
+    width: 20px;                  /* Indicator width */
+    height: 20px;                 /* Indicator height */
+    border-radius: 50%;           /* Circular shape */
+    background-color: #3671C6;    /* Default color (can be overridden with inline styles) */
+    border: 2px solid white;      /* White border for contrast */
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);  /* Subtle shadow for depth */
+    
+    /* Smooth transitions for position changes */
+    transition: top 1s linear, left 1s linear;
+}
+
+/* .driver_indicator:hover {
+    transform: scale(1.2);        
+    transition: transform 0.15s ease;
+} */
+
+.driver_indicator::after {
+    content: attr(data-driver-name); /* Optional driver name overlay */
+    position: absolute;
+    top: -25px;                    /* Position above the indicator */
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    white-space: nowrap;
+    text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.8); /* Text shadow for readability */
+}

@@ -1,0 +1,35 @@
+.dropdown {
+    /* padding-right: 8px; */
+    background-color: #f9f9f9;
+    padding: 12px;
+    border: 1px solid #ccc;
+
+}
+
+.dropdown-select {
+    border-radius: 0px;
+    /* border: 1px solid #ccc; */
+    border: none;
+    font-size: 14px;
+    background-color: #f9f9f9;
+    color: #333;
+    cursor: pointer;
+    text-align: center;
+    background-position: right 10px center; /* Adjust arrow position */
+
+}
+
+
+.dropdown-select:has(option[value=""]:checked) {
+    color: #999; /* Ensure invalid placeholder is light gray */
+
+  }
+
+.dropdown-select:focus{
+    outline: none;
+}
+
+
+.dropdown-select-option {
+    text-align: center;
+}
