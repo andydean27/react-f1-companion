@@ -1,7 +1,7 @@
 // useLocationData.js
 import { useEffect, useState, useRef } from 'react';
 import { fetchOpenf1Data } from '../services/fetchSessionData';
-import { useCurrentTime, usePlayback } from '../contexts/Contexts';
+import { useCurrentTime, usePlayback, useCurrentTime } from '../contexts/Contexts';
 
 export const useLocationData = (sessionKey) => {
     const [locations, setLocations] = useState([]);
