@@ -4,7 +4,7 @@ import { updateTargetObject } from "../../utils/DriverDataProcessing";
 import { CurrentTimeContext, SelectedSessionContext, useCurrentTime, usePlayback } from "../../contexts/Contexts";
 import { useIntervalData } from "../../hooks/useIntervalData";
 
-const TimingBoard = () => {
+const TimingBoard = (drivers) => {
     // Contexts
     const { selectedSession } = useContext(SelectedSessionContext);
     const { isPlaying, setIsPlaying } = usePlayback();

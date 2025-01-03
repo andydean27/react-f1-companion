@@ -18,12 +18,13 @@ export const useLocationData = (sessionKey) => {
         
         const fetchData = async () => {
             const data = await fetchOpenf1Data(
-                'location',
-                sessionKey, 
-                currentTimeRef.current, 
-                10000,
-                'date', 
-                true);
+                'location',             // endPoint
+                sessionKey,             // sessionKey
+                currentTimeRef.current, // currentTime
+                'date',                 // dateString
+                10000,                  // bufferUp
+                5000,                   // bufferDown
+                true);                  // log
             
             setLocations(data);
         };

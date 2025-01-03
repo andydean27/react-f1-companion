@@ -7,22 +7,31 @@ export const useIntervalData = (sessionKey) => {
     const [intervals, setIntervals] = useState([]);
     const { isPlaying } = usePlayback();
     const { isLive } = useIsLive();
-    // const { currentTime } = useCurrentTime();
-    // const currentTimeRef = useRef(currentTime);
+    const { currentTime } = useCurrentTime();
+    const currentTimeRef = useRef(currentTime);
 
-    // useEffect(() => {
-    //     currentTimeRef.current = currentTime;
-    // }, [currentTime]);
+    useEffect(() => {
+        currentTimeRef.current = currentTime;
+    }, [currentTime]);
 
     useEffect(() => {
 
         const fetchData = async () => {
+            
+            let _currentTime = undefined;
+
+            // If session is live then use the slider time to continuously update the intervals
+            if (isLive) {
+                _currentTime = currentTimeRef.current
+            }
+
             const data = await fetchOpenf1Data(
                 'intervals',    // endPoint
                 sessionKey,     // sessionKey
-                undefined,      // currentTime
-                undefined,      // buffer
+                _currentTime,   // currentTime
                 undefined,      // dateString
+                undefined,      // bufferUp
+                1000000,        // bufferDown
                 true);          // log
             
             setIntervals(data);
@@ -31,7 +40,7 @@ export const useIntervalData = (sessionKey) => {
         // Initially load data
         fetchData();
 
-        // If session is not live return
+        // If session is not live return and don't set up interval
         if (!isLive) {
             return;
         }

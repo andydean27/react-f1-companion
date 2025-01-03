@@ -3,8 +3,9 @@ export const fetchOpenf1Data = async (
     endPoint,
     sessionKey,
     currentTime = null,
-    buffer = 10000,
     dateString = 'date',
+    bufferUp = 10000,
+    bufferDown = 10000,
     log = false,
     maxRetries = 3,
     retryDelay = 100
@@ -16,8 +17,8 @@ export const fetchOpenf1Data = async (
     // if currentTime is set then generate date filtering string
     let dateAttribute = '';
     if (currentTime){
-        const startTime = new Date(currentTime - buffer / 2).toISOString();
-        const endTime = new Date(currentTime + buffer).toISOString();
+        const startTime = new Date(currentTime - bufferDown).toISOString();
+        const endTime = new Date(currentTime + bufferUp).toISOString();
         dateAttribute = `&${dateString}>${startTime}&${dateString}<${endTime}`
     }
 
