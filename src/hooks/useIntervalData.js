@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useIsLive, usePlayback } from "../contexts/Contexts";
+import { useIsLive, usePlayback, useCurrentTime } from "../contexts/Contexts";
 import { fetchOpenf1Data } from "../services/fetchSessionData";
 
 
