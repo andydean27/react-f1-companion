@@ -29,7 +29,7 @@ export const useIntervalData = (sessionKey) => {
                 'intervals',    // endPoint
                 sessionKey,     // sessionKey
                 _currentTime,   // currentTime
-                undefined,      // dateString
+                undefined,      // dateProperty
                 undefined,      // bufferUp
                 1000000,        // bufferDown
                 true);          // log

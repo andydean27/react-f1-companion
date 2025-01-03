@@ -3,7 +3,7 @@ export const fetchOpenf1Data = async (
     endPoint,
     sessionKey,
     currentTime = null,
-    dateString = 'date',
+    dateProperty = 'date',
     bufferUp = 10000,
     bufferDown = 10000,
     log = false,
@@ -19,7 +19,7 @@ export const fetchOpenf1Data = async (
     if (currentTime){
         const startTime = new Date(currentTime - bufferDown).toISOString();
         const endTime = new Date(currentTime + bufferUp).toISOString();
-        dateAttribute = `&${dateString}>${startTime}&${dateString}<${endTime}`
+        dateAttribute = `&${dateProperty}>${startTime}&${dateProperty}<${endTime}`
     }
 
     const fetchURL = baseURL + `${endPoint}?session_key=${sessionKey}` + dateAttribute

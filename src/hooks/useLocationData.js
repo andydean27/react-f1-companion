@@ -21,7 +21,7 @@ export const useLocationData = (sessionKey) => {
                 'location',             // endPoint
                 sessionKey,             // sessionKey
                 currentTimeRef.current, // currentTime
-                'date',                 // dateString
+                'date',                 // dateProperty
                 10000,                  // bufferUp
                 5000,                   // bufferDown
                 true);                  // log
