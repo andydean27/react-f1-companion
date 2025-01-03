@@ -1,13 +1,12 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
-import { fetchDriverData, fetchLapData, fetchLocationData } from "../../services/fetchSessionData";
+import React, { useState, useEffect, useContext } from "react";
+import { fetchDriverData} from "../../services/fetchSessionData";
 
-import TrackMap from "../../features/TrackMap/TrackMap";
 import RaceMap from "../../features/RaceMap/RaceMap";
 import SessionSelector from "../../features/SessionSelector/SessionSelector";
 import TimePlayer from "../../components/ui/TimePlayer";
 
 import './MainPage.css';
-import { SelectedSessionContext, LocationsContext, usePlayback, useCurrentTime, useDrivers } from "../../contexts/Contexts";
+import { SelectedSessionContext, usePlayback, useCurrentTime, useDrivers } from "../../contexts/Contexts";
 import TimingBoard from "../../features/TimingBoard/TimingBoard";
 
 const MainPage = () => {
