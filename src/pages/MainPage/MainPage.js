@@ -79,9 +79,7 @@ const MainPage = () => {
             {/* <TrackMap /> */}
             <RaceMap/>
             <SessionSelector />
-            <TimingBoard
-                drivers={drivers}
-            />
+            <TimingBoard/>
             <TimePlayer
                 startTime={startTime}
                 endTime={endTime}

@@ -154,17 +154,27 @@ export const updateTargetObject = (
         }
       }
     });
-  
+
     // Update the targetObject with the comparisonMap
-    Object.keys(comparisonMap).forEach((driverNumber) => {
-      if (targetObject[driverNumber]) {
-        const updatedItem = transformFn(comparisonMap[driverNumber]);
-        targetObject[driverNumber] = {
-          ...targetObject[driverNumber],
-          ...updatedItem,
-        };
-      }
+    targetObject.forEach((item, index) => {
+        if (comparisonMap[item['driver_number']]) {
+            const updatedItem = transformFn(comparisonMap[item['driver_number']]);
+            targetObject[index] = { 
+                ...item,  // Retain existing properties of the item
+                ...updatedItem // Override with properties from updatedItem
+            };
+        }
     });
+
+    // Object.keys(comparisonMap).forEach((driverNumber) => {
+    //   if (targetObject[driverNumber]) {
+    //     const updatedItem = transformFn(comparisonMap[driverNumber]);
+    //     targetObject[driverNumber] = {
+    //       ...targetObject[driverNumber],
+    //       ...updatedItem,
+    //     };
+    //   }
+    // });
   
     return targetObject;
   };

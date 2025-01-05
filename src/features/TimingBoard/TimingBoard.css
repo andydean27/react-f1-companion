@@ -1,0 +1,43 @@
+.timing-board {
+    position: relative;
+    overflow: auto;
+    background-color: var(--color-background);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    padding: 10px;
+}
+
+/* TimingBoard.css */
+.driver-card {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1.5fr 1.5fr; /* Adjust the fractions based on desired widths */
+    align-items: center;
+    padding: 4px;
+    border-bottom: 1px solid #ddd;
+    font-size: 10px;
+    background-color: #fff;
+    transition: background-color 0.2s;
+}
+
+.driver-card:hover {
+    background-color: #f8f9fa;
+}
+
+.driver-card span {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.position {
+    text-align: center;
+}
+
+.name_acronym {
+    font-weight: bold;
+}
+
+.interval,
+.gap_to_leader {
+    text-align: right;
+}

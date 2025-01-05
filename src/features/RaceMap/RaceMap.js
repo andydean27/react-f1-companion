@@ -4,15 +4,13 @@ import { Map, Source, Layer } from 'react-map-gl';
 import { GetCurrentLocation } from '../../utils/DriverDataProcessing';
 import { getTrackCoordinates } from '../../config/trackCoordinates';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { translate2DCoords } from '../../utils/MathFunctions';
-import ManualTranslationAdjust from './ManualTranslationAdjust';
 import { useLocationData } from '../../hooks/useLocationData';
 
 
 const RaceMap = () => {
     // Contexts
     const { selectedSession } = useContext(SelectedSessionContext);
-    
+
     const { drivers } = useDrivers();
     const driversRef = useRef(drivers);
 
@@ -52,7 +50,6 @@ const RaceMap = () => {
         const updateDriverData = () => {
             // Get track data to use api transformation
             const trackData = getTrackCoordinates(selectedSession.location);
-
             // Get current location for each driver based on current time
             const updatedDrivers = GetCurrentLocation(driversRef.current, locationsRef.current, currentTimeRef.current, trackData);
             // console.log(updatedDrivers[0].x)
