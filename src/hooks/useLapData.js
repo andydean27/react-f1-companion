@@ -34,7 +34,7 @@ export const useLapData = (sessionKey) => {
                 1000000,        // bufferDown
                 true);          // log
             
-            setIntervals(data);
+            setLaps(data);
         }
 
         // Initially load data

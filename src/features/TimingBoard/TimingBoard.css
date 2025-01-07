@@ -7,16 +7,27 @@
     padding: 10px;
 }
 
-/* TimingBoard.css */
+.driver-card-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Distribute cards with space between */
+    height: 100%; /* Ensures it fills the Rnd container */
+    
+}
+
 .driver-card {
     display: grid;
-    grid-template-columns: 1fr 2fr 1.5fr 1.5fr; /* Adjust the fractions based on desired widths */
+    grid-template-columns: 0.5fr 1fr 1.5fr 1.5fr; /* Adjust the fractions based on desired widths */
     align-items: center;
     padding: 4px;
     border-bottom: 1px solid #ddd;
     font-size: 10px;
     background-color: #fff;
     transition: background-color 0.2s;
+}
+
+.driver-card.expanded {
+    grid-template-columns: 0.5fr 1fr 1.5fr 1.5fr 2fr 2fr 2fr 2fr; /* Adjust based on extra details */
 }
 
 .driver-card:hover {
@@ -35,9 +46,39 @@
 
 .name_acronym {
     font-weight: bold;
+    text-align: center;
 }
 
 .interval,
-.gap_to_leader {
-    text-align: right;
+.gap_to_leader,
+.fastest_lap {
+    text-align: center;
+}
+
+
+
+
+.sector-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sector-time {
+    font-size: 0.9em;
+    color: #333;
+    /* margin-bottom: 5px; */
+}
+
+.segment-box-container {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    gap: 2px; /* Optional for spacing between boxes */
+}
+
+.segment-box {
+    /* flex: 1; */
+    height: 5px;
+    width: 5px;
 }
