@@ -1,15 +1,18 @@
 :root {
-  --color-primary: #0078d4;
-  --color-secondary: #2d2d2d;
-  --color-background: #ffffff;
-  --color-text: #000000;
+  --color-primary: rgb(84, 86, 101);
+  --color-secondary: rgb(46, 53, 59);
+  --color-highlight: rgb(248, 252, 255);
+  --color-background: rgb(46, 53, 59);
+  --color-background-transparent: rgba(46, 53, 59, 0.5);
+  --color-text-primary: rgb(248, 252, 255);
+  --color-text-secondary: rgb(214, 228, 235);
 }
 
 [data-theme='dark'] {
   --color-primary: #0053a0;
   --color-secondary: #4a4a4a;
   --color-background: #121212;
-  --color-text: #ffffff;
+  --color-text-primary: #ffffff;
 }
 
 body {
@@ -26,3 +29,42 @@ code {
     monospace;
 }
 
+span {
+  color: var(--color-text-primary);
+}
+
+button {
+  width: 16px; /* Adjust the size of the button */
+  height: 16px; /* Ensure height and width are equal for round shape */
+  margin: 5px;
+  background-color: var(--color-primary);
+  font-size: 1rem;
+  color: white; /* Text color */
+  border: none; /* No borders */
+  border-radius: 50%; /* Makes the button round */
+  display: flex; /* Flexbox for centering content */
+  align-items: center; /* Vertically center content */
+  justify-content: center; /* Horizontally center content */
+  font-size: 16px; /* Adjust text size */
+}
+.item{
+  width: 32px; /* Adjust the size of the button */
+  height: 32px; /* Ensure height and width are equal for round shape */
+}
+
+
+.container {
+  background-color: var(--color-background-transparent);
+  backdrop-filter: blur(10px);
+  border-top-color: var(--color-primary);
+  border-left-color: var(--color-primary);
+  border-right-color: var(--color-background-transparent);
+  border-bottom-color: var(--color-background-transparent);
+
+  /* background: var(--color-background-transparent) padding-box,
+              linear-gradient(to right, #3acfd5 0%, #3a4ed5 100%) border-box; */
+  border-width: 1px;
+  border-radius: 8px;
+  border-style: solid;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}

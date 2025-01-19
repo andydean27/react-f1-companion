@@ -1,12 +1,14 @@
 import { Rnd } from "react-rnd";
 import { useEffect, useContext, useRef, useState } from "react";
-import { updateTargetObject } from "../../utils/DriverDataProcessing";
+import { updateTargetObject, addFastestLapToDrivers } from "../../utils/DriverDataProcessing";
 import { CurrentTimeContext, SelectedSessionContext, useCurrentTime, usePlayback, useDrivers } from "../../contexts/Contexts";
 import { useIntervalData } from "../../hooks/useIntervalData";
 import { usePositionData } from "../../hooks/usePositionData";
 import DriverCard from "./DriverCard";
 import './TimingBoard.css'
 import { useLapData } from "../../hooks/useLapData";
+import { useStintData } from "../../hooks/useStintData";
+import TimingHeader from "./TimingHeader";
 
 const TimingBoard = () => {
     // Contexts
@@ -35,6 +37,12 @@ const TimingBoard = () => {
     const laps = useLapData(selectedSession?.session_key);
     const lapsRef = useRef(laps);
 
+    const stints = useStintData(selectedSession?.session_key);
+    const stintsRef = useRef(stints);
+
+    // Refs
+    const tableRef = useRef(null);
+
     // Keep the ref updated with the latest currentTime
     useEffect(() => {
         currentTimeRef.current = currentTime;
@@ -55,6 +63,10 @@ const TimingBoard = () => {
     useEffect(() => {
         lapsRef.current = laps;
     }, [laps]);
+
+    useEffect(() => {
+        stintsRef.current = stints;
+    }, [stints]);
 
     // New driver data for timing board
     useEffect(() => {
@@ -91,6 +103,24 @@ const TimingBoard = () => {
                     () => true, // No additional filtering
                     (position) => ({ latest_position: position.position }) // Add the latestInterval property
                 );
+
+                // Get current intitial for each driver based on current time
+                updatedDrivers = updateTargetObject(
+                    updatedDrivers,
+                    positionsRef.current,
+                    'date',
+                    'smallest',
+                    currentTimeRef.current,
+                    'date',
+                    () => true, // No additional filtering
+                    (position) => ({ initial_position: position.position }) // Add the latestInterval property
+                );
+
+                // Calculate position change
+                updatedDrivers = updatedDrivers.map(driver => ({
+                    ...driver,
+                    position_change: driver.initial_position - driver.latest_position
+                }));
             }
 
             if (lapsRef.current) {
@@ -117,6 +147,27 @@ const TimingBoard = () => {
                     () => true, // No additional filtering
                     (lap) => ({ current_lap: lap }) // Add the latestInterval property
                 );
+
+                updatedDrivers = addFastestLapToDrivers(updatedDrivers);
+            }
+
+            if (stintsRef.current) {
+                // Get current stint for each driver based on current time
+                updatedDrivers = updateTargetObject(
+                    updatedDrivers,
+                    stintsRef.current,
+                    'lap_start',
+                    'largest',
+                    null,
+                    'lap_start',
+                    (stint) => {
+                        // Match stint to the driver's current lap number
+                        const driverData = updatedDrivers.find(d => d.driver_number === stint.driver_number);
+                        return driverData && stint.lap_start <= driverData.current_lap?.lap_number;
+                    },
+                    (stint) => ({ current_stint: stint }), // Add the latestInterval property
+                    true
+                );
             }
 
             // Sort drivers
@@ -124,12 +175,11 @@ const TimingBoard = () => {
                 updatedDrivers = Object.values(updatedDrivers).sort((a, b) => a.latest_position - b.latest_position);
             }
 
-            console.log(updatedDrivers[1]);
+            // console.log(updatedDrivers[1]);
             setCurrentDrivers(updatedDrivers);
-
         };
 
-        const intervalID = setInterval(updateDriverData, 1000);
+        const intervalID = setInterval(updateDriverData, 500);
         return () => {
             console.log('Clearing map update interval...');
             clearInterval(intervalID);
@@ -138,18 +188,29 @@ const TimingBoard = () => {
 
     
     const toggleExpanded = () => {
-        setBoardSize((prevSize) => ({
-            ...prevSize,
-            width: expanded ? prevSize.width / 2.5 : prevSize.width * 2.5,
-        }));
         setExpanded((prev) => !prev);
     };
 
+    const toggleClose = () => {
+        // Does nothing yet
+    };
+
+    useEffect(() => {
+        if (tableRef.current) {
+            const tableWidth = tableRef.current.scrollWidth;
+            setBoardSize((prev) => ({
+                ...prev,
+                width: tableWidth,
+            }));
+        }
+    }, [expanded, currentDrivers]); // Recalculate width when content or expansion changes
+
+
     const handleResize = (e, direction, ref, delta, position) => {
-        setBoardSize({
-            width: parseInt(ref.style.width, 10),
-            height: parseInt(ref.style.height, 10),
-        });
+        setBoardSize((prev) => ({
+            ...prev,
+            height: parseInt(ref.style.height, 10), // Allow only vertical resizing
+        }));
     };
 
     return (
@@ -157,30 +218,50 @@ const TimingBoard = () => {
             default={{
                 x: 50,
                 y: 100,
-                // width: 300,
-                // height: 400,
             }}
-            size={boardSize} // Dynamically set the size
-            onResize={handleResize} // Update state on resize
+            size={boardSize}
+            onResize={handleResize}
             bounds="parent"
-            minWidth={200}
-            minHeight={(currentDrivers?.length * 20 + 50) || 50} // Minimum size to fit all content
-            className="timing-board"
+            minHeight={32}
+            enableResizing={{
+                top: true,
+                right: false,
+                bottom: true,
+                left: false,
+                topRight: false,
+                bottomRight: false,
+                bottomLeft: false,
+                topLeft: false,
+            }} // Allow only vertical resizing
+            className="timing-board container"
         >
-            
-            <div className='driver-card-container'>
-                <button onClick={toggleExpanded}>
-                    toggle
-                </button>
-                {currentDrivers && 
-                currentDrivers.map((driver) => (
-                    <DriverCard 
-                        key={driver.driver_number} 
-                        driver={driver} 
-                        expanded={expanded} 
-                        sessionType={selectedSession?.session_type}
-                    />
-                ))}
+            <div className="timing-board-content">
+                <div className="controls">
+                    <button onClick={toggleClose}>✕</button>
+                    <span>Timing</span>
+                    <button onClick={toggleExpanded}>{expanded ? "–" : "+"}</button>
+                </div>
+                <div className="driver-card-container">
+                    <table ref={tableRef} className="timing-table">
+                        <thead>
+                            <TimingHeader 
+                                sessionType={selectedSession?.session_type}
+                                expanded={expanded}
+                            />
+                        </thead>
+                        <tbody>
+                            {currentDrivers &&
+                                currentDrivers.map((driver) => (
+                                    <DriverCard
+                                        key={driver.driver_number}
+                                        driver={driver}
+                                        expanded={expanded}
+                                        sessionType={selectedSession?.session_type}
+                                    />
+                                ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </Rnd>
     );

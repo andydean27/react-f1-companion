@@ -1,84 +1,143 @@
 .timing-board {
     position: relative;
-    overflow: auto;
-    background-color: var(--color-background);
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    padding: 10px;
+    overflow: hidden;
+    transition: width 0.3s ease; /* Smooth transitions */
+    display: flex;
+    flex-direction: column; /* Stack child elements vertically */
+    height: 100%; /* Ensure it respects the Rnd container height */
+    font-size: clamp(6px, 2vh, 24px);
+}
+
+.timing-board-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Ensure it respects the Rnd container's height */
+}
+
+.timing-board .controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 5px;
+    flex-shrink: 0; /* Prevent it from shrinking */
 }
 
 .driver-card-container {
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Distribute cards with space between */
-    height: 100%; /* Ensures it fills the Rnd container */
-    
+    flex-grow: 1; /* Take up the remaining space in the column */
+    overflow-y: auto; /* Add scroll if content overflows */
 }
-
-.driver-card {
-    display: grid;
-    grid-template-columns: 0.5fr 1fr 1.5fr 1.5fr; /* Adjust the fractions based on desired widths */
-    align-items: center;
-    padding: 4px;
-    border-bottom: 1px solid #ddd;
-    font-size: 10px;
-    background-color: #fff;
-    transition: background-color 0.2s;
-}
-
-.driver-card.expanded {
-    grid-template-columns: 0.5fr 1fr 1.5fr 1.5fr 2fr 2fr 2fr 2fr; /* Adjust based on extra details */
-}
-
-.driver-card:hover {
-    background-color: #f8f9fa;
-}
-
-.driver-card span {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-
-.position {
-    text-align: center;
-}
-
-.name_acronym {
-    font-weight: bold;
-    text-align: center;
-}
-
-.interval,
-.gap_to_leader,
-.fastest_lap {
-    text-align: center;
-}
-
-
-
 
 .sector-display {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
 }
 
 .sector-time {
-    font-size: 0.9em;
-    color: #333;
-    /* margin-bottom: 5px; */
+    text-align: center;
+    padding-left: 5px;
 }
 
 .segment-box-container {
     display: flex;
-    justify-content: flex-start;
-    width: 100%;
-    gap: 2px; /* Optional for spacing between boxes */
+    flex-direction: row;
+    justify-content: center;
+    width: auto;
+    gap: 2px; 
 }
 
-.segment-box {
-    /* flex: 1; */
-    height: 5px;
-    width: 5px;
+.segment-box{
+    height: 12px;
+    border-radius: 2px;
+    width: 3px;
+}
+
+
+/* .timing-table {
+    width: 100%;
+    height: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    font-size: 0.6em;
+} */
+
+.timing-table {
+    width: fit-content;
+    height: 100%; /* Fill the height of the Rnd container */
+    border-collapse: collapse;
+    text-align: center;
+    font-size: 0.6em;
+    overflow-y: auto;
+    color: var(--color-text-secondary);
+}
+
+.timing-table .overall-fastest-lap {
+    background: linear-gradient(to right, rgba(201, 44, 213, 0.5) 0%, rgba(201, 44, 213, 0) 400px);
+    /* background-color: rgba(201, 44, 213, 0.3); */
+}
+
+.timing-table .overall-fastest-lap:hover {
+    background: linear-gradient(to right, rgba(201, 44, 213, 1) 0%, rgba(201, 44, 213, 0) 400px);
+    /* background-color: rgba(201, 44, 213, 0.3); */
+}
+
+.timing-table tr {
+    transition: font-size 0.3s ease, background-color 0.3s ease;
+}
+
+.timing-table .tr:hover {
+    background: linear-gradient(to right, var(--color-primary) 0%, rgba(201, 44, 213, 0) 400px);
+}
+
+.timing-table th {
+    font-weight: bold;
+    font-size: 1.1em;
+    border-bottom: 1px solid #ccc;
+}
+.timing-table td,
+.timing-table th {
+    white-space: nowrap; /* Prevents wrapping */
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+.timing-table .compound,
+.timing-table .tyre_age{
+    font-weight: bold;
+}
+
+.tyre {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.driver-name {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.name_acronym {
+    font-weight: bold;
+    color: var(--color-text-primary);
+}
+.team-icon {
+    height: 12px;
+    width: 3px;
+    margin: 0px 3px 0px 3px;
+}
+
+.position{
+    border-right: 1px solid #ccc;
+    color: var(--color-text-primary);
+}
+
+.position_change {
+    font-weight: bold;
 }

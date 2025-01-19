@@ -44,27 +44,6 @@ const MainPage = () => {
         }
     }, [selectedSession]);
 
-    
-
-    // Set up a 5-second interval to fetch location data using the latest currentTime
-    // useEffect(() => {
-    //     let locationDataIntervalID;
-        
-    //     const loadLocationData = async () => {
-    //         if (currentTimeRef.current && isPlaying) {
-    //             const locationData = await fetchLocationData(selectedSession.session_key, currentTimeRef.current, 15000);
-    //             setLocations(locationData);
-    //         }
-    //     };
-
-    //     if (selectedSession){
-    //         loadLocationData();
-    //         locationDataIntervalID = setInterval(loadLocationData, 5000);
-    //     }
-        
-    //     return () => clearInterval(locationDataIntervalID);
-    // }, [selectedSession, isPlaying]);
-
     const handleTimeUpdate = (time) => {
         setCurrentTime(time);
     };
