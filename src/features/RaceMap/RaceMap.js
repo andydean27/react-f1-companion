@@ -136,7 +136,8 @@ const RaceMap = () => {
                 zoom: 1,
             }}
             style={{ width: '100%', height: '100%' }}
-            mapStyle="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json"
+            // mapStyle="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json"
+            mapStyle="https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json"
             >
             
 
@@ -148,7 +149,8 @@ const RaceMap = () => {
                         id="track-outline"
                         type="line"
                         paint={{
-                            'line-color': '#d5d5d5',
+                            // 'line-color': '#d5d5d5',
+                            'line-color': '#f55442',
                             'line-width': [
                                 'interpolate',
                                 ['exponential', 2],
