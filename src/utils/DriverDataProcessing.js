@@ -126,33 +126,38 @@ export const updateTargetObject = (
     currentTime = null,
     dateProperty = 'date',
     filterFn = () => true,
-    transformFn = (item) => item
+    transformFn = (item) => item,
+    log = false
   ) => {
     const comparisonMap = {};
-  
+    
+   
+
     dataset.forEach((item) => {
-      const { driver_number } = item;
-      const comparisonValue = item[comparisonProperty];
-      const itemTime = new Date(item[dateProperty]).getTime();
+        const { driver_number } = item;
+        const comparisonValue = item[comparisonProperty];
+        const itemTime = new Date(item[dateProperty]).getTime();
+
+         // Skip items that don't pass the filter function or the time constraint
+        if (!filterFn(item) || (currentTime && itemTime > currentTime)) return;
+
+        
   
-      // Skip items that don't pass the filter function or the time constraint
-      if (!filterFn(item) || (currentTime && itemTime > currentTime)) return;
-  
-      // Determine if the item should replace the current entry in comparisonMap
-      if (!comparisonMap[driver_number]) {
-        comparisonMap[driver_number] = item;
-      } else {
-        const existingValue = comparisonMap[driver_number][comparisonProperty];
-        const replace = {
-          smallest: comparisonValue < existingValue,
-          largest: comparisonValue > existingValue,
-          latest: itemTime > new Date(comparisonMap[driver_number][dateProperty]).getTime(),
-        }[action];
-  
-        if (replace) {
-          comparisonMap[driver_number] = item;
+        // Determine if the item should replace the current entry in comparisonMap
+        if (!comparisonMap[driver_number]) {
+            comparisonMap[driver_number] = item;
+        } else {
+            const existingValue = comparisonMap[driver_number][comparisonProperty];
+            const replace = {
+            smallest: comparisonValue < existingValue,
+            largest: comparisonValue > existingValue,
+            latest: itemTime > new Date(comparisonMap[driver_number][dateProperty]).getTime()
+            }[action];
+    
+            if (replace) {
+            comparisonMap[driver_number] = item;
+            }
         }
-      }
     });
 
     // Update the targetObject with the comparisonMap
@@ -178,4 +183,36 @@ export const updateTargetObject = (
   
     return targetObject;
   };
+
+  /**
+ * Add the overall fastest lap to each driver.
+ * @param {Array} updatedDrivers - Array of driver objects.
+ * @returns {Array} The updated array of drivers with the fastest lap highlighted.
+ */
+export const addFastestLapToDrivers = (updatedDrivers) => {
+    if (!Array.isArray(updatedDrivers) || updatedDrivers.length === 0) {
+        console.warn("No drivers data provided.");
+        return updatedDrivers;
+    }
+
+    // Find the driver with the fastest lap
+    let fastestLapTime = Infinity;
+    // let fastestDriverNumber = null;
+    let overall_fastest_lap = null;
+
+    updatedDrivers.forEach(driver => {
+        if (driver.fastest_lap?.lap_duration < fastestLapTime) {
+            fastestLapTime = driver.fastest_lap.lap_duration;
+            // fastestDriverNumber = driver.driver_number;
+            overall_fastest_lap = driver.fastest_lap;
+        }
+    });
+
+    // Add the fastest lap property to each driver
+    return updatedDrivers.map(driver => ({
+        ...driver,
+        overall_fastest_lap: overall_fastest_lap
+    }));
+};
+
   
