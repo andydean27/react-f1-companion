@@ -110,7 +110,7 @@ const TyreDisplay = ({driver}) => {
                     color: compoundColourmap[driver.current_stint?.compound] || '#ccc'
                 }}
             >
-                {driver.current_stint?.compound[0] || '—'}
+                {driver.current_stint?.compound?.[0] || '—'}
             </span>
             <span className="tyre_age">
                 {(driver.current_stint?.tyre_age_at_start + (driver.current_lap?.lap_number - driver.current_stint?.lap_start)) || '0'}
