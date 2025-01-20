@@ -24,6 +24,7 @@ const TimingBoard = () => {
     // States
     const [expanded, setExpanded] = useState(false);
     const [currentDrivers, setCurrentDrivers] = useState(null);
+    const [currentLapNumber, setCurrentLapNumber] = useState(null);
     const [currentTrack, setCurrentTrack] = useState(null);
     const [boardSize, setBoardSize] = useState({ width: 200, height: 400 }); // Initial size
 
@@ -177,6 +178,7 @@ const TimingBoard = () => {
 
             // console.log(updatedDrivers[1]);
             setCurrentDrivers(updatedDrivers);
+            setCurrentLapNumber(updatedDrivers[0]?.current_lap?.lap_number);
         };
 
         const intervalID = setInterval(updateDriverData, 500);
@@ -239,6 +241,7 @@ const TimingBoard = () => {
                 <div className="controls">
                     <button onClick={toggleClose}>✕</button>
                     <span>Timing</span>
+                    <span>{`Lap: ${currentLapNumber}`}</span>
                     <button onClick={toggleExpanded}>{expanded ? "–" : "+"}</button>
                 </div>
                 <div className="driver-card-container">

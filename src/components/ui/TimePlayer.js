@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import './TimePlayer.css';
 
-const TimePlayer = ({ startTime, endTime, value, onTimeUpdate, onPlayUpdate }) => {
+const TimePlayer = ({ startTime, endTime, value, timeMarkers, sectionMarkers, onTimeUpdate, onPlayUpdate }) => {
     const [currentTime, setCurrentTime] = useState(value); // Tracks the current time
     const [isPlaying, setIsPlaying] = useState(false); // Playback state
     const [playbackSpeed, setPlaybackSpeed] = useState(1); // Normal speed
@@ -58,11 +58,11 @@ const TimePlayer = ({ startTime, endTime, value, onTimeUpdate, onPlayUpdate }) =
     };
 
     // Fast-forward
-    const fastForward = () => {
-        if (isPlaying) {
-            setPlaybackSpeed((prevSpeed) => prevSpeed * 2); // Double the speed
-        }
-    };
+    // const fastForward = () => {
+    //     if (isPlaying) {
+    //         setPlaybackSpeed((prevSpeed) => prevSpeed * 2); // Double the speed
+    //     }
+    // };
 
     // Format time (in milliseconds) as HH:MM:SS
     const formatTime = (time) => {
@@ -70,26 +70,77 @@ const TimePlayer = ({ startTime, endTime, value, onTimeUpdate, onPlayUpdate }) =
         return date.toISOString().substr(11, 8);
     };
 
-    return (
-        <div className="time-player">
-            <input
-                type="range"
-                min={startTime}
-                max={endTime}
-                value={currentTime}
-                onChange={handleSliderChange}
-                className="time-slider"
-            />
+    const generateTimeMarkers = () => {
+        // Takes time marker object and generates jsx to display them
+        // time.time in milliseconds
+        // time.hover_label as string
 
+
+        if (!timeMarkers) return null;
+        console.log(startTime, endTime);
+        return (
+            <div className="time-marker-container">
+            {timeMarkers.map((time, index) => (
+                <div
+                key={index}
+                className="time-marker"
+                style={{ ...time.style, 
+                    left: `${(time.time - startTime) / (endTime - startTime) * 100}%` }}
+                >
+                {/* <div className="time-marker-label">
+                    {time.hover_label}
+                </div> */}
+                </div>
+            ))}
+            </div>
+        )
+    };
+
+    const generateSectionMarkers = () => {
+        // Takes section marker object and generates jsx to display them
+        // section.start_time in milliseconds
+        // section.end_time in milliseconds
+        // section.colour as string
+    };
+
+    const previousTime = () => {
+        // Move current time back to the previous time marker
+        // If no time markers, do nothing
+    }
+
+    const nextTime = () => {
+        // Move current time forward to the next time marker
+        // If no time markers, do nothing
+    }
+
+    return (
+        <div className="time-player container">
             <div className="controls">
-                <button onClick={togglePlayPause}>
-                    {isPlaying ? "Pause" : "Play"}
+                <button style={{fontSize: '40px'}} onClick={previousTime}>
+                    ⥀
                 </button>
-                <button onClick={fastForward} disabled={!isPlaying}>
-                    Fast Forward
+                <button onClick={togglePlayPause}>
+                    {isPlaying ? "❚❚" : "▶"}
+                </button>
+                <button style={{fontSize: '40px'}} onClick={nextTime}>
+                    ⥁
+                </button>
+                <button>
+                    ⏭
                 </button>
                 <div className="time-display">{formatTime(currentTime)}</div>
             </div>
+            <div className="time-slider-container">
+                <input
+                    type="range"
+                    min={startTime}
+                    max={endTime}
+                    value={currentTime}
+                    onChange={handleSliderChange}
+                    className="time-slider"
+                />
+                {generateTimeMarkers()}
+            </div>  
         </div>
     );
 };
