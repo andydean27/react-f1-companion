@@ -77,7 +77,6 @@ const TimePlayer = ({ startTime, endTime, value, timeMarkers, sectionMarkers, on
 
 
         if (!timeMarkers) return null;
-        console.log(startTime, endTime);
         return (
             <div className="time-marker-container">
             {timeMarkers.map((time, index) => (

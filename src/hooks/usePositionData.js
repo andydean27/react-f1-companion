@@ -25,6 +25,7 @@ export const usePositionData = (sessionKey) => {
                 undefined,      // dateProperty
                 undefined,      // bufferUp
                 undefined,      // bufferDown
+                '',                   // other url args
                 true);          // log
             
             setPositions(data);

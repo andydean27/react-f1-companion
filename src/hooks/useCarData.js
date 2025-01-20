@@ -24,6 +24,7 @@ export const useLocationData = (sessionKey) => {
                 'date',                 // dateProperty
                 10000,                  // bufferUp
                 5000,                   // bufferDown
+                '',                   // other url args
                 true);                  // log
             
             setCarData(data);

@@ -32,6 +32,7 @@ export const useLapData = (sessionKey) => {
                 undefined,      // dateProperty
                 undefined,      // bufferUp
                 1000000,        // bufferDown
+                '',                   // other url args
                 true);          // log
             
             setLaps(data);

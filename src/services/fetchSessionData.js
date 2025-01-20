@@ -6,6 +6,7 @@ export const fetchOpenf1Data = async (
     dateProperty = 'date',
     bufferUp = 10000,
     bufferDown = 10000,
+    args = '',
     log = false,
     maxRetries = 3,
     retryDelay = 100
@@ -22,7 +23,7 @@ export const fetchOpenf1Data = async (
         dateAttribute = `&${dateProperty}>${startTime}&${dateProperty}<${endTime}`
     }
 
-    const fetchURL = baseURL + `${endPoint}?session_key=${sessionKey}` + dateAttribute
+    const fetchURL = baseURL + `${endPoint}?session_key=${sessionKey}` + dateAttribute + args;
 
     while (attempts < maxRetries) {
         try {

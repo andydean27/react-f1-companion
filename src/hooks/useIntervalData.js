@@ -32,6 +32,7 @@ export const useIntervalData = (sessionKey) => {
                 undefined,      // dateProperty
                 undefined,      // bufferUp
                 1000000,        // bufferDown
+                '',                   // other url args
                 true);          // log
             
             setIntervals(data);
