@@ -105,10 +105,10 @@ export const generateSectionMarkers = (session, laps, raceControl) => {
 }
 
 const flagColourMap = {
-    "GREEN": {backgroundColor: "green"},
-    "YELLOW": {backgroundColor: "yellow"},
-    "RED": {backgroundColor: "red"},
-    "DOUBLE YELLOW": {backgroundColor: "yellow"},
-    "CLEAR": {backgroundColor: "green"},
-    "CHEQUERED": {backgroundColor: "transparent"},
+    "GREEN": {background: "linear-gradient(to bottom, green, transparent)"},
+    "YELLOW": {background: "linear-gradient(to bottom, yellow, transparent)"},
+    "RED": {background: "linear-gradient(to bottom, red, transparent)"},
+    "DOUBLE YELLOW": {background: "linear-gradient(to bottom, yellow, transparent)"},
+    "CLEAR": {background: "linear-gradient(to bottom, green, transparent)"},
+    "CHEQUERED": {background: "linear-gradient(to bottom, transparent, transparent)"},
 };
