@@ -18,8 +18,27 @@
 }
 
 .time-slider {
-    width: 100%;
+    -webkit-appearance: none;
+    /* width: 100%; */
+    height: 4px;
+    background-color: var(--color-highlight);
+    border-radius: 2px;
+    opacity: 0.9;
+    margin: 8px 0 8px 0;
 }
+
+.time-slider:hover {
+    opacity: 1;
+}
+
+.time-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 4px;
+    height: 16px;
+    background: var(--color-highlight);
+    cursor: pointer;
+  }
 
 .controls {
     flex-direction: row;
