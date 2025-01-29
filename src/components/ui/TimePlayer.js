@@ -70,27 +70,31 @@ const TimePlayer = ({ startTime, endTime, value, timeMarkers, sectionMarkers, on
         return date.toISOString().substr(11, 8);
     };
 
+    // To do: dont call this function every render, create a state for the jsx
     const generateTimeMarkers = () => {
         // Takes time marker object and generates jsx to display them
         // time.time in milliseconds
-        // time.hover_label as string
-
-
-        if (!timeMarkers) return null;
+        if (!timeMarkers || !sectionMarkers) return null;
         return (
             <div className="time-marker-container">
-            {timeMarkers.map((time, index) => (
+            {sectionMarkers && sectionMarkers.map((section, index) => (
+                <div
+                    key={index}
+                    className="section-marker"
+                    style={{ ...section?.style,
+                        left: `${(section?.start_time - startTime) / (endTime - startTime) * 100}%`,
+                        width: `${(section?.end_time - section?.start_time) / (endTime - startTime) * 100}%` }}
+                />
+            ))}
+            {timeMarkers && timeMarkers.map((time, index) => (
                 <div
                 key={index}
                 className="time-marker"
                 style={{ ...time.style, 
-                    left: `${(time.time - startTime) / (endTime - startTime) * 100}%` }}
-                >
-                {/* <div className="time-marker-label">
-                    {time.hover_label}
-                </div> */}
-                </div>
+                    left: `${(time?.time - startTime) / (endTime - startTime) * 100}%` }}
+                />
             ))}
+            
             </div>
         )
     };
@@ -104,12 +108,25 @@ const TimePlayer = ({ startTime, endTime, value, timeMarkers, sectionMarkers, on
 
     const previousTime = () => {
         // Move current time back to the previous time marker
-        // If no time markers, do nothing
+        
+        if (!timeMarkers) return;
+
+        const timeMarkersFiltered = timeMarkers.filter((time) => time.time < currentTime);
+        if (timeMarkersFiltered.length === 0) return;
+
+        setCurrentTime(timeMarkersFiltered[timeMarkersFiltered.length - 1].time);
+
     }
 
     const nextTime = () => {
-        // Move current time forward to the next time marker
-        // If no time markers, do nothing
+        // Find the next time marker after the current time
+
+        if (!timeMarkers) return;
+
+        const timeMarkersFiltered = timeMarkers.filter((time) => time.time > currentTime);
+        if (timeMarkersFiltered.length === 0) return;
+
+        setCurrentTime(timeMarkersFiltered[0].time);
     }
 
     return (

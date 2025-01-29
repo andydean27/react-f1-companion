@@ -48,6 +48,7 @@
 
 .time-display {
     font-size: 1em;
+    width: 70px;
 }
 
 .time-marker-container {
@@ -61,5 +62,10 @@
     position: absolute;
     width: 1px;
     height: 10px;
-    background-color: var(--color-primary);
+    background-color: var(--color-highlight);
+}
+
+.section-marker {
+    position: absolute;
+    height: 2px;
 }
