@@ -22,6 +22,7 @@ const TimingHeader = ({ expanded, sessionType }) => {
             <th>Sector 2</th>
             <th>Sector 3</th>
             <th>Tyre</th>
+            <th></th>
         </tr>
 };
 export default TimingHeader;

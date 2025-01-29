@@ -5,7 +5,7 @@ const DriverCard = ({ driver, expanded, sessionType }) => {
     return (sessionType === "Race" ?
         <tr className={`driver-card ${sessionType === 'Race' ? 'race' : 'quali'} 
                                     ${expanded ? 'expanded' : ''}
-                                    ${driver.fastest_lap?.lap_duration === driver.overall_fastest_lap?.lap_duration ? 'overall-fastest-lap' : ''}`}>
+                                    ${driver.fastest_lap?.lap_duration === driver.overall_fastest_lap?.lap_duration && !isNaN(driver.overall_fastest_lap?.lap_duration) ? 'overall-fastest-lap' : ''}`}>
             <td className="position">{driver.latest_position || '—'}</td>
             <DriverNameDisplay driver={driver}/>
             <PositionChangeDisplay driver={driver}/>
@@ -31,6 +31,7 @@ const DriverCard = ({ driver, expanded, sessionType }) => {
             <SectorDisplay sectorTime={driver.current_lap?.duration_sector_2} sectorSegments={driver.current_lap?.segments_sector_2} expanded={expanded}/>
             <SectorDisplay sectorTime={driver.current_lap?.duration_sector_3} sectorSegments={driver.current_lap?.segments_sector_3} expanded={expanded}/>
             <TyreDisplay driver={driver}/>     
+            <td className="is_pit_out_lap">{driver.current_lap?.is_pit_out_lap ? 'Out' : '—'}</td>
         </tr>
     );
 };

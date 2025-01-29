@@ -178,7 +178,7 @@ const TimingBoard = () => {
 
             // console.log(updatedDrivers[1]);
             setCurrentDrivers(updatedDrivers);
-            setCurrentLapNumber(updatedDrivers[0]?.current_lap?.lap_number);
+            setCurrentLapNumber(updatedDrivers?.[0]?.current_lap?.lap_number);
         };
 
         const intervalID = setInterval(updateDriverData, 500);

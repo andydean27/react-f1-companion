@@ -55,7 +55,7 @@ button {
 
 .container {
   background-color: var(--color-background-transparent);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(20px);
   border-top-color: var(--color-primary);
   border-left-color: var(--color-primary);
   border-right-color: var(--color-background-transparent);

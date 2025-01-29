@@ -9,6 +9,8 @@ import './MainPage.css';
 import { SelectedSessionContext, usePlayback, useCurrentTime, useDrivers } from "../../contexts/Contexts";
 import TimingBoard from "../../features/TimingBoard/TimingBoard";
 import { useLapData } from "../../hooks/useLapData";
+import { useRaceControlData } from "../../hooks/useRaceControlData";
+import { generateTimeMarkers, generateSectionMarkers } from "../../utils/SessionDataProcessing";
 
 
 const MainPage = () => {
@@ -20,10 +22,12 @@ const MainPage = () => {
 
     // Hooks
     const laps = useLapData(selectedSession?.session_key);
+    const raceControl = useRaceControlData(selectedSession?.session_key);
 
     // States
     const [startTime, setStartTime] = useState(0);
     const [timeMarkers, setTimeMarkers] = useState(null);
+    const [sectionMarkers, setSectionMarkers] = useState(null);
     const [endTime, setEndTime] = useState(0);
 
 
@@ -31,10 +35,10 @@ const MainPage = () => {
     useEffect(()=>{
         if (selectedSession){
             setStartTime(new Date (selectedSession.date_start).getTime());
-            setEndTime(new Date (selectedSession.date_end).getTime());
+            setEndTime(Math.max(new Date (selectedSession.date_end).getTime(), new Date(raceControl?.[raceControl.length-1]?.date).getTime()+120000));
         }
 
-    },[selectedSession]);
+    },[selectedSession, raceControl]);
 
     // Load initial driver data when selectedSession changes
     useEffect(() => {
@@ -49,31 +53,9 @@ const MainPage = () => {
     }, [selectedSession]);
 
     useEffect(() => {
-        // Generate time markers by getting the first occurence of each lap_number
-        // Returns a list of objects with lap_number and time only using the first occurence of each lap_number
-        if (laps) {
-            // Sort laps by date_start
-            laps.sort((a, b) => new Date(a.date_start) - new Date(b.date_start));
-            
-            // Get the first occurence of each lap_number, regardless of driver number
-            const markers = laps.filter((lap, index, self) => 
-                index === self.findIndex((t) => (
-                    t.lap_number === lap.lap_number
-                ))
-            ).map((lap) => {
-                return {
-                    time: new Date(lap.date_start).getTime(),
-                    lap_number: lap.lap_number,
-                    style: {
-                        height: lap.lap_number % 5 === 0 ? '10px' : '5px',
-                    }
-                };
-            });
-
-            setTimeMarkers(markers);
-        }
-        
-    }, [selectedSession, laps]);
+        setTimeMarkers(generateTimeMarkers(selectedSession, laps, raceControl));
+        setSectionMarkers(generateSectionMarkers(selectedSession, laps, raceControl));
+    }, [selectedSession, laps, raceControl]);
 
     const handleTimeUpdate = (time) => {
         setCurrentTime(time);
@@ -98,6 +80,7 @@ const MainPage = () => {
                 endTime={endTime}
                 value={startTime}
                 timeMarkers={timeMarkers}
+                sectionMarkers={sectionMarkers}
                 onTimeUpdate={handleTimeUpdate}
                 onPlayUpdate={handlePlayUpdate}
             />
