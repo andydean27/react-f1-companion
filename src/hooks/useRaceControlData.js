@@ -3,7 +3,7 @@ import { useIsLive, usePlayback, useCurrentTime } from "../contexts/Contexts";
 import { fetchOpenf1Data } from "../services/fetchSessionData";
 
 
-export const useRacecontrolData = (sessionKey) => {
+export const useRaceControlData = (sessionKey) => {
     const [raceControl, setRaceControl] = useState([]);
     const { isPlaying } = usePlayback();
     const { isLive } = useIsLive();
