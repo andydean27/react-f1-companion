@@ -240,8 +240,10 @@ const TimingBoard = () => {
             <div className="timing-board-content">
                 <div className="controls">
                     <button onClick={toggleClose}>✕</button>
-                    <span>Timing</span>
-                    <span>{`Lap: ${currentLapNumber}`}</span>
+                    <div>
+                        <h3>Timing</h3>
+                        <h6>{`Lap: ${currentLapNumber}`}</h6>
+                    </div>
                     <button onClick={toggleExpanded}>{expanded ? "–" : "+"}</button>
                 </div>
                 <div className="driver-card-container">
