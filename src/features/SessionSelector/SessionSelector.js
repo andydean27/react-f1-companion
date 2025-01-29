@@ -89,7 +89,7 @@ const SessionSelector = () => {
 
     return (
         <div className="session-selector">
-            <div className="session-selector-dropdowns">
+            <div className="session-selector-dropdowns container">
                 <Dropdown // Year selector
                     className="dropdown-year"
                     options={years}

@@ -2,9 +2,9 @@
     display: flex;
     align-items: center;
     position: absolute;
-    top: 0px;
-    left: 0px;
-    padding: 32px;
+    top: 32px;
+    left: 32px;
+    /* padding: 32px; */
     gap: 8px;
     z-index: 1000; /* Ensure it sits above the map */
 }
@@ -12,28 +12,37 @@
 .session-selector-dropdowns {
     display: flex;
     flex-direction: row;
-    background-color: white;
-    border-radius: 24px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    /* background-color: white; */
+    /* border-radius: 24px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); */
     /* gap: 8px; */
     flex-grow: 1;
     overflow: hidden;
 }
 
+.dropdown,
+.dropdown-select {
+    background-color: rgba(0, 0, 0, 0);
+    color: var(--color-text-primary);
+}
+
 .dropdown-year {
     width: 100px; /* Year dropdown is narrower */
     border: none;
+    border-color: var(--color-highlight);
 }
 
 .dropdown-circuit {
     width: 200px; /* Circuit dropdown is wider */
     border-top: none;
     border-bottom: none;
+    border-color: var(--color-primary);
 }
 
 .dropdown-session {
     width: 150px; /* Session dropdown is medium-sized */
     border: none;
+    border-color: var(--color-highlight);
 }
 .session-selector button {
     border: none;
