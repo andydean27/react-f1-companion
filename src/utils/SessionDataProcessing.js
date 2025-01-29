@@ -110,5 +110,5 @@ const flagColourMap = {
     "RED": {backgroundColor: "red"},
     "DOUBLE YELLOW": {backgroundColor: "yellow"},
     "CLEAR": {backgroundColor: "green"},
-    "CHEQUERED": {backgroundColor: "black"},
+    "CHEQUERED": {backgroundColor: "transparent"},
 };
