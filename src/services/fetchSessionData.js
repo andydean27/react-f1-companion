@@ -15,6 +15,12 @@ export const fetchOpenf1Data = async (
 
     let attempts = 0;
 
+    // If sessionKey is null return null
+    if (!sessionKey) { 
+        console.error('Session key is null. Unable to fetch data.');
+        return null;
+    }
+
     // if currentTime is set then generate date filtering string
     let dateAttribute = '';
     if (currentTime){
