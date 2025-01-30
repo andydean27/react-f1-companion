@@ -9,6 +9,7 @@ const SessionSelector = () => {
     const [selectedYear, setSelectedYear] = useState('');
     const [selectedCircuit, setSelectedCircuit] = useState('');
     const [selectedSessionType, setSelectedSessionType] = useState('');
+    const [liveSessionAvailable, setLiveSessionAvailable] = useState(false);
 
     const [circuits, setCircuits] = useState([]);
     const [sessionTypes, setSessionTypes] = useState([]);
@@ -23,6 +24,7 @@ const SessionSelector = () => {
         const loadSessionData = async () => {
             const sessionData = await fetchSessionData();
             setSessions(sessionData);
+            setLiveSessionAvailable(sessionData.some((session) => session.end_time < Date.now()));
         };
 
         loadSessionData();
@@ -87,6 +89,15 @@ const SessionSelector = () => {
         }
     };
 
+    // Handle refresh button click
+    const handleReloadButtonClick = () => {
+        // Reset selected session to current session to trigger re-render
+        setSelectedSession(null);
+        setTimeout(() => {
+            setSelectedSession(selectedSession);
+        }, 100);
+    };
+
     return (
         <div className="session-selector">
             <div className="session-selector-dropdowns container">
@@ -114,8 +125,11 @@ const SessionSelector = () => {
                     disabled={!selectedCircuit}
                 />
             </div>
-            <button onClick={handleLiveButtonClick} disabled={false}>
-                Live
+            <button onClick={handleLiveButtonClick} disabled={!liveSessionAvailable} className="button-live">
+                Live ●
+            </button>
+            <button onClick={handleReloadButtonClick} className="button-round">
+                &#x21bb;
             </button>
         </div>
     );

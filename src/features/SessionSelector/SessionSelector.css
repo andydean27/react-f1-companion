@@ -44,10 +44,10 @@
     border: none;
     border-color: var(--color-highlight);
 }
-.session-selector button {
+.button-live {
     border: none;
-    background-color: #4285f4; 
-    color: white;
+    background-color: #db4437; 
+    color: var(--color-text-primary);
     font-size: 14px;
     padding: 8px 16px;
     border-radius: 4px;
@@ -57,11 +57,11 @@
 
 }
 
-.session-selector button:disabled {
+.button-live:disabled {
     background-color: #b0b0b0;
     cursor: not-allowed;
 }
 
-.session-selector button:hover:not(:disabled) {
-    background-color: #357ae8;
+.button-live:hover:not(:disabled) {
+    background-color: #c0392b;
 }

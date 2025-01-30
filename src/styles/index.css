@@ -41,19 +41,28 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 button {
-  width: 16px; /* Adjust the size of the button */
-  height: 16px; /* Ensure height and width are equal for round shape */
   margin: 5px;
   background-color: var(--color-primary);
   font-size: 1rem;
   color: var(--color-text-primary);
   border: none; /* No borders */
-  border-radius: 50%; /* Makes the button round */
   display: flex; /* Flexbox for centering content */
   align-items: center; /* Vertically center content */
   justify-content: center; /* Horizontally center content */
   font-size: 16px; /* Adjust text size */
 }
+
+button:hover {
+  background-color: var(--color-secondary);
+}
+
+.button-round {
+  width: 24px; /* Adjust the size of the button */
+  height: 24px; /* Ensure height and width are equal for round shape */
+  font-size: 1rem;
+  border-radius: 50%; /* Makes the button round */
+}
+
 .item{
   width: 32px; /* Adjust the size of the button */
   height: 32px; /* Ensure height and width are equal for round shape */

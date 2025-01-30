@@ -99,13 +99,6 @@ const TimePlayer = ({ startTime, endTime, value, timeMarkers, sectionMarkers, on
         )
     };
 
-    const generateSectionMarkers = () => {
-        // Takes section marker object and generates jsx to display them
-        // section.start_time in milliseconds
-        // section.end_time in milliseconds
-        // section.colour as string
-    };
-
     const previousTime = () => {
         // Move current time back to the previous time marker
         
@@ -117,6 +110,12 @@ const TimePlayer = ({ startTime, endTime, value, timeMarkers, sectionMarkers, on
         setCurrentTime(timeMarkersFiltered[timeMarkersFiltered.length - 1].time);
 
     }
+
+    const toLive = () => {
+        // Move current time to now in UTC in milliseconds
+
+        setCurrentTime(Date.now());
+    };
 
     const nextTime = () => {
         // Find the next time marker after the current time
@@ -132,16 +131,16 @@ const TimePlayer = ({ startTime, endTime, value, timeMarkers, sectionMarkers, on
     return (
         <div className="time-player container">
             <div className="controls">
-                <button style={{fontSize: '40px'}} onClick={previousTime}>
+                <button className="button-round" style={{fontSize: '40px'}} onClick={previousTime}>
                     ⥀
                 </button>
-                <button onClick={togglePlayPause}>
+                <button className="button-round" onClick={togglePlayPause}>
                     {isPlaying ? "❚❚" : "▶"}
                 </button>
-                <button style={{fontSize: '40px'}} onClick={nextTime}>
+                <button className="button-round" style={{fontSize: '40px'}} onClick={nextTime}>
                     ⥁
                 </button>
-                <button>
+                <button className="button-round" onClick={toLive}>
                     ⏭
                 </button>
                 <div className="time-display">{formatTime(currentTime)}</div>
