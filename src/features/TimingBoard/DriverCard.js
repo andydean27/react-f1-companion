@@ -1,11 +1,32 @@
 import './TimingBoard.css';
 import { compoundColourmap, segmentColourMap } from "../../config/colourMaps";
+import { useState } from 'react';
 
-const DriverCard = ({ driver, expanded, sessionType }) => {
+const DriverCard = ({ driver, expanded, sessionType, onClick, selected }) => {
+    const [isDragging, setIsDragging] = useState(false);
+
+    const handleMouseDown = () => {
+        setIsDragging(false);
+    };
+
+    const handleMouseMove = () => {
+        setIsDragging(true);
+    };
+
+    const handleMouseUp = () => {
+        if (!isDragging) {
+            onClick(driver);
+        }
+    };
+
     return (sessionType === "Race" ?
         <tr className={`driver-card ${sessionType === 'Race' ? 'race' : 'quali'} 
                                     ${expanded ? 'expanded' : ''}
-                                    ${driver.fastest_lap?.lap_duration === driver.overall_fastest_lap?.lap_duration && !isNaN(driver.overall_fastest_lap?.lap_duration) ? 'overall-fastest-lap' : ''}`}>
+                                    ${driver.fastest_lap?.lap_duration === driver.overall_fastest_lap?.lap_duration && !isNaN(driver.overall_fastest_lap?.lap_duration) ? 'overall-fastest-lap' : ''}
+                                    ${selected ? 'selected' : ''}`}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}>
             <td className="position">{driver.latest_position || '—'}</td>
             <DriverNameDisplay driver={driver}/>
             <PositionChangeDisplay driver={driver}/>
@@ -23,7 +44,11 @@ const DriverCard = ({ driver, expanded, sessionType }) => {
         :
         <tr className={`driver-card ${sessionType === 'Race' ? 'race' : 'quali'} 
                                     ${expanded ? 'expanded' : ''}
-                                    ${driver.fastest_lap?.lap_duration === driver.overall_fastest_lap?.lap_duration ? 'overall-fastest-lap' : ''}`}>
+                                    ${driver.fastest_lap?.lap_duration === driver.overall_fastest_lap?.lap_duration ? 'overall-fastest-lap' : ''}
+                                    ${selected ? 'selected' : ''}`}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}>
             <td className="position">{driver.latest_position || '—'}</td>
             <td className="name_acronym">{driver.name_acronym || '—'}</td>
             <td className="fastest_lap">{formatTimeLap(driver.fastest_lap?.lap_duration) || '—'}</td>

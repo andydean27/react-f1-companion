@@ -76,19 +76,25 @@
 
 .timing-table .overall-fastest-lap {
     background: linear-gradient(to right, rgba(201, 44, 213, 0.5) 0%, rgba(201, 44, 213, 0) 400px);
-    /* background-color: rgba(201, 44, 213, 0.3); */
 }
 
 .timing-table .overall-fastest-lap:hover {
     background: linear-gradient(to right, rgba(201, 44, 213, 1) 0%, rgba(201, 44, 213, 0) 400px);
-    /* background-color: rgba(201, 44, 213, 0.3); */
+}
+
+.timing-table .overall-fastest-lap.selected {
+    background: linear-gradient(to right, rgba(201, 44, 213, 1) 0%, rgba(201, 44, 213, 0) 400px);
 }
 
 .timing-table tr {
     transition: font-size 0.3s ease, background-color 0.3s ease;
 }
 
-.timing-table .tr:hover {
+.timing-table tbody tr:hover {
+    background: linear-gradient(to right, var(--color-primary) 0%, rgba(201, 44, 213, 0) 400px);
+}
+
+.timing-table tbody tr.selected {
     background: linear-gradient(to right, var(--color-primary) 0%, rgba(201, 44, 213, 0) 400px);
 }
 

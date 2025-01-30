@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { DriversContext, LocationsContext, CurrentTimeContext, SelectedSessionContext, useDrivers, useCurrentTime } from '../../contexts/Contexts';
+import { DriversContext, LocationsContext, CurrentTimeContext, SelectedSessionContext, useDrivers, useCurrentTime, useSelectedDriver } from '../../contexts/Contexts';
 import { Map, Source, Layer } from 'react-map-gl';
 import { GetCurrentLocation } from '../../utils/DriverDataProcessing';
 import { getTrackCoordinates } from '../../config/trackCoordinates';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { useLocationData } from '../../hooks/useLocationData';
+import { use } from 'react';
 
 
 const RaceMap = () => {
@@ -13,6 +14,9 @@ const RaceMap = () => {
 
     const { drivers } = useDrivers();
     const driversRef = useRef(drivers);
+
+    const {selectedDriver} = useSelectedDriver();
+    const selectedDriverRef = useRef(selectedDriver);
 
     const { currentTime } = useCurrentTime();
     const currentTimeRef = useRef(currentTime);
@@ -34,6 +38,10 @@ const RaceMap = () => {
     }, [drivers]);
 
     useEffect(() => {
+        selectedDriverRef.current = selectedDriver;
+    }, [selectedDriver]);
+
+    useEffect(() => {
         locationsRef.current = locations;
     }, [locations]);
 
@@ -52,11 +60,9 @@ const RaceMap = () => {
             const trackData = getTrackCoordinates(selectedSession.location);
             // Get current location for each driver based on current time
             const updatedDrivers = GetCurrentLocation(driversRef.current, locationsRef.current, currentTimeRef.current, trackData);
-            // console.log(updatedDrivers[0].x)
             if (updatedDrivers) {
                 setCurrentDrivers(
                     updatedDrivers.map(driver => driverToGEOJSON(driver))
-                    
                 );
             }
         };
@@ -160,7 +166,6 @@ const RaceMap = () => {
                             ],
                             'line-opacity': 0.8
                         }}
-                        // beforeId="drivers"
                     />
                     {/* Main Line Layer */}
                     <Layer
@@ -177,7 +182,6 @@ const RaceMap = () => {
                             ],
                             'line-opacity': 1
                         }}
-                        // beforeId="drivers"
                     />
                 </Source>
             )}
@@ -193,7 +197,6 @@ const RaceMap = () => {
                             'circle-color': ['get', 'teamColour'],
                             'circle-opacity': 1,
                         }}
-                        
                     />
                 </Source>
             )}

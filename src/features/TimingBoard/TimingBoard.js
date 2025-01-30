@@ -1,7 +1,7 @@
 import { Rnd } from "react-rnd";
 import { useEffect, useContext, useRef, useState } from "react";
 import { updateTargetObject, addFastestLapToDrivers } from "../../utils/DriverDataProcessing";
-import { CurrentTimeContext, SelectedSessionContext, useCurrentTime, usePlayback, useDrivers } from "../../contexts/Contexts";
+import { CurrentTimeContext, SelectedSessionContext, useCurrentTime, usePlayback, useDrivers, useSelectedDriver } from "../../contexts/Contexts";
 import { useIntervalData } from "../../hooks/useIntervalData";
 import { usePositionData } from "../../hooks/usePositionData";
 import DriverCard from "./DriverCard";
@@ -20,6 +20,8 @@ const TimingBoard = () => {
 
     const { drivers } = useDrivers();
     const driversRef = useRef(drivers);
+
+    const { selectedDriver, setSelectedDriver } = useSelectedDriver();
 
     // States
     const [expanded, setExpanded] = useState(false);
@@ -215,6 +217,15 @@ const TimingBoard = () => {
         }));
     };
 
+    const handleDriverSelect = (driver) => {
+        // Toggle driver selection
+        if (selectedDriver?.driver_number === driver?.driver_number) {
+            setSelectedDriver(null);
+            return;
+        }   
+        setSelectedDriver(driver);
+    };
+
     return (
         <Rnd
             default={{
@@ -244,7 +255,7 @@ const TimingBoard = () => {
                         <h3>Timing</h3>
                         <h6>{`Lap: ${currentLapNumber}`}</h6>
                     </div>
-                    <button className="button-round" onClick={toggleExpanded}>{expanded ? "–" : "+"}</button>
+                    <button className="button-round" onClick={toggleExpanded}>{expanded ? "-" : "+"}</button>
                 </div>
                 <div className="driver-card-container">
                     <table ref={tableRef} className="timing-table">
@@ -262,6 +273,8 @@ const TimingBoard = () => {
                                         driver={driver}
                                         expanded={expanded}
                                         sessionType={selectedSession?.session_type}
+                                        onClick={handleDriverSelect}
+                                        selected={selectedDriver?.driver_number === driver?.driver_number}
                                     />
                                 ))}
                         </tbody>
