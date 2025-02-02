@@ -4,7 +4,7 @@ import { updateTargetObject, addFastestLapToDrivers } from "../../utils/DriverDa
 import { CurrentTimeContext, SelectedSessionContext, useCurrentTime, usePlayback, useDrivers, useSelectedDriver } from "../../contexts/Contexts";
 import { useIntervalData } from "../../hooks/useIntervalData";
 import { usePositionData } from "../../hooks/usePositionData";
-import DriverCard from "./DriverCard";
+import DriverTiming from "./DriverTiming";
 import './TimingBoard.css'
 import { useLapData } from "../../hooks/useLapData";
 import { useStintData } from "../../hooks/useStintData";
@@ -257,7 +257,7 @@ const TimingBoard = () => {
                     </div>
                     <button className="button-round" onClick={toggleExpanded}>{expanded ? "-" : "+"}</button>
                 </div>
-                <div className="driver-card-container">
+                <div className="driver-timing-container">
                     <table ref={tableRef} className="timing-table">
                         <thead>
                             <TimingHeader 
@@ -268,7 +268,7 @@ const TimingBoard = () => {
                         <tbody>
                             {currentDrivers &&
                                 currentDrivers.map((driver) => (
-                                    <DriverCard
+                                    <DriverTiming
                                         key={driver.driver_number}
                                         driver={driver}
                                         expanded={expanded}

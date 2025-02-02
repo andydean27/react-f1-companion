@@ -2,7 +2,7 @@ import './TimingBoard.css';
 import { compoundColourmap, segmentColourMap } from "../../config/colourMaps";
 import { useState } from 'react';
 
-const DriverCard = ({ driver, expanded, sessionType, onClick, selected }) => {
+const DriverTiming = ({ driver, expanded, sessionType, onClick, selected }) => {
     const [isDragging, setIsDragging] = useState(false);
 
     const handleMouseDown = () => {
@@ -20,7 +20,7 @@ const DriverCard = ({ driver, expanded, sessionType, onClick, selected }) => {
     };
 
     return (sessionType === "Race" ?
-        <tr className={`driver-card ${sessionType === 'Race' ? 'race' : 'quali'} 
+        <tr className={`driver-timing ${sessionType === 'Race' ? 'race' : 'quali'} 
                                     ${expanded ? 'expanded' : ''}
                                     ${driver.fastest_lap?.lap_duration === driver.overall_fastest_lap?.lap_duration && !isNaN(driver.overall_fastest_lap?.lap_duration) ? 'overall-fastest-lap' : ''}
                                     ${selected ? 'selected' : ''}`}
@@ -42,7 +42,7 @@ const DriverCard = ({ driver, expanded, sessionType, onClick, selected }) => {
             <TyreDisplay driver={driver}/>            
         </tr>
         :
-        <tr className={`driver-card ${sessionType === 'Race' ? 'race' : 'quali'} 
+        <tr className={`driver-timing ${sessionType === 'Race' ? 'race' : 'quali'} 
                                     ${expanded ? 'expanded' : ''}
                                     ${driver.fastest_lap?.lap_duration === driver.overall_fastest_lap?.lap_duration ? 'overall-fastest-lap' : ''}
                                     ${selected ? 'selected' : ''}`}
@@ -61,7 +61,7 @@ const DriverCard = ({ driver, expanded, sessionType, onClick, selected }) => {
     );
 };
 
-export default DriverCard;
+export default DriverTiming;
 
 const DriverNameDisplay = ({driver}) => {
     return (

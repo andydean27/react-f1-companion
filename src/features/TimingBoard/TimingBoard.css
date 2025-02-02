@@ -22,7 +22,7 @@
     flex-shrink: 0; /* Prevent it from shrinking */
 }
 
-.driver-card-container {
+.driver-timing-container {
     display: flex;
     flex-direction: column;
     flex-grow: 1; /* Take up the remaining space in the column */
