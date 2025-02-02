@@ -1,0 +1,36 @@
+.mapboxgl-popup-content {
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.5rem;
+  /* copied from .container in index.css*/
+  background-color: var(--color-background);
+  /* backdrop-filter: blur(20px); */
+  border-top-color: var(--color-primary);
+  border-left-color: var(--color-primary);
+  border-right-color: var(--color-background-transparent);
+  border-bottom-color: var(--color-background-transparent);
+
+  /* background: var(--color-background-transparent) padding-box,
+              linear-gradient(to right, #3acfd5 0%, #3a4ed5 100%) border-box; */
+  border-width: 1px;
+  border-radius: 8px;
+  border-style: solid;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
+  /* background-color: var(--color-background-transparent); */
+  /* backdrop-filter: blur(20px);  */
+  border-top-color: var(--color-background);
+  /* border-left-color: var(--color-primary);
+  border-right-color: var(--color-background-transparent);
+  border-bottom-color: var(--color-background-transparent);
+  border-width: 1px;
+  border-radius: 8px;
+  border-style: solid;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
+}
+
+.mapboxgl-popup-anchor-bottom {
+    transition: transform 0.08s;
+}

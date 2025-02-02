@@ -6,6 +6,8 @@ import { getTrackCoordinates } from '../../config/trackCoordinates';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { useLocationData } from '../../hooks/useLocationData';
 import { use } from 'react';
+import DriverMarkers from './DriverMarkers';
+
 
 
 const RaceMap = () => {
@@ -29,7 +31,7 @@ const RaceMap = () => {
     const locations = useLocationData(selectedSession?.session_key);
     const locationsRef = useRef(locations);
 
-    
+    // const driverLayerSourceData = useDriverMapSource(driversRef.current);
 
     const mapRef = useRef();
 
@@ -41,54 +43,54 @@ const RaceMap = () => {
         selectedDriverRef.current = selectedDriver;
     }, [selectedDriver]);
 
-    useEffect(() => {
-        locationsRef.current = locations;
-    }, [locations]);
+    // useEffect(() => {
+    //     locationsRef.current = locations;
+    // }, [locations]);
 
-    useEffect(() => {
-        currentTimeRef.current = currentTime;
-    }, [currentTime]);
+    // useEffect(() => {
+    //     currentTimeRef.current = currentTime;
+    // }, [currentTime]);
 
 
-    useEffect(() => {
-        if (!selectedSession){
-            return;
-        };
+    // useEffect(() => {
+    //     if (!selectedSession || !drivers){
+    //         return;
+    //     };
         
-        const updateDriverData = () => {
-            // Get track data to use api transformation
-            const trackData = getTrackCoordinates(selectedSession.location);
-            // Get current location for each driver based on current time
-            const updatedDrivers = GetCurrentLocation(driversRef.current, locationsRef.current, currentTimeRef.current, trackData);
-            if (updatedDrivers) {
-                setCurrentDrivers(
-                    updatedDrivers.map(driver => driverToGEOJSON(driver))
-                );
-            }
-        };
+    //     const updateDriverData = () => {
+    //         // Get track data to use api transformation
+    //         const trackData = getTrackCoordinates(selectedSession.location);
+    //         // Get current location for each driver based on current time
+    //         const updatedDrivers = GetCurrentLocation(driversRef.current, locationsRef.current, currentTimeRef.current, trackData);
+    //         if (updatedDrivers) {
+    //             setCurrentDrivers(
+    //                 updatedDrivers.map(driver => driverToGEOJSON(driver))
+    //             );
+    //         }
+    //     };
 
-        const mapIntervalID = setInterval(updateDriverData, 50);
-        return () => {
-            console.log('Clearing map update interval...');
-            clearInterval(mapIntervalID);
-        }
-    }, [selectedSession]);
+    //     const mapIntervalID = setInterval(updateDriverData, 50);
+    //     return () => {
+    //         console.log('Clearing map update interval...');
+    //         clearInterval(mapIntervalID);
+    //     }
+    // }, [selectedSession]);
 
-    const driverToGEOJSON = (driver) => ({
-        type: 'Feature',
-        geometry: {
-            type: 'Point',
-            coordinates: [driver.x, driver.y],
-        },
-        properties: {
-            teamColour: `#${driver.team_colour}`,
-        }
-    });
+    // const driverToGEOJSON = (driver) => ({
+    //     type: 'Feature',
+    //     geometry: {
+    //         type: 'Point',
+    //         coordinates: [driver.x, driver.y],
+    //     },
+    //     properties: {
+    //         teamColour: `#${driver.team_colour}`,
+    //     }
+    // });
 
-    const geojsonDriverData = {
-        type: 'FeatureCollection',
-        features: currentDrivers,
-    };
+    // const geojsonDriverData = {
+    //     type: 'FeatureCollection',
+    //     features: currentDrivers,
+    // };
     
 
     // Effect for map zooming
@@ -187,7 +189,8 @@ const RaceMap = () => {
             )}
 
             {/* Driver Markers */}
-            {currentDrivers && (
+            {driversRef?.current && <DriverMarkers drivers={driversRef.current}/>}
+            {/* {currentDrivers && (
                 <Source id="drivers" type="geojson" data={geojsonDriverData}>
                     <Layer
                         id="driver-locations"
@@ -199,7 +202,7 @@ const RaceMap = () => {
                         }}
                     />
                 </Source>
-            )}
+            )} */}
         </Map>
     );
 };

@@ -72,7 +72,7 @@ const MainPage = () => {
             
             {/* <TrackMap /> */}
             <RaceMap/>
-            <SessionSelector />
+            <SessionSelector/>
             <TimingBoard/>
             {selectedSession &&
             <TimePlayer
