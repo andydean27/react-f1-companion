@@ -50,7 +50,7 @@ const DriverTiming = ({ driver, expanded, sessionType, onClick, selected }) => {
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}>
             <td className="position">{driver.latest_position || '—'}</td>
-            <td className="name_acronym">{driver.name_acronym || '—'}</td>
+            <DriverNameDisplay driver={driver}/>
             <td className="fastest_lap">{formatTimeLap(driver.fastest_lap?.lap_duration) || '—'}</td>
             <SectorDisplay sectorTime={driver.current_lap?.duration_sector_1} sectorSegments={driver.current_lap?.segments_sector_1} expanded={expanded}/>
             <SectorDisplay sectorTime={driver.current_lap?.duration_sector_2} sectorSegments={driver.current_lap?.segments_sector_2} expanded={expanded}/>
@@ -66,7 +66,7 @@ export default DriverTiming;
 const DriverNameDisplay = ({driver}) => {
     return (
         <td>
-            <div className="driver-name">
+            <div className="driver-acronym">
                 <div 
                     className="team-icon"
                     style={{ backgroundColor: `#${driver.team_colour}` || '#ccc' }}

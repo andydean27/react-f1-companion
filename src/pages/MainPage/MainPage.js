@@ -6,8 +6,9 @@ import SessionSelector from "../../features/SessionSelector/SessionSelector";
 import TimePlayer from "../../components/ui/TimePlayer";
 
 import './MainPage.css';
-import { SelectedSessionContext, usePlayback, useCurrentTime, useDrivers } from "../../contexts/Contexts";
+import { SelectedSessionContext, usePlayback, useCurrentTime, useDrivers, useSelectedDriver } from "../../contexts/Contexts";
 import TimingBoard from "../../features/TimingBoard/TimingBoard";
+import DriverDetails from "../../features/DriverDetails/DriverDetails";
 import { useLapData } from "../../hooks/useLapData";
 import { useRaceControlData } from "../../hooks/useRaceControlData";
 import { generateTimeMarkers, generateSectionMarkers } from "../../utils/SessionDataProcessing";
@@ -16,6 +17,7 @@ import { generateTimeMarkers, generateSectionMarkers } from "../../utils/Session
 const MainPage = () => {
     // Contexts
     const { selectedSession } = useContext(SelectedSessionContext);
+    const {selectedDriver} = useSelectedDriver();
     const { drivers, setDrivers } = useDrivers();
     const { isPlaying, setIsPlaying } = usePlayback();
     const { currentTime, setCurrentTime } = useCurrentTime();
@@ -74,6 +76,9 @@ const MainPage = () => {
             <RaceMap/>
             <SessionSelector/>
             <TimingBoard/>
+            {selectedDriver && 
+            <DriverDetails driver={selectedDriver}/>
+            }
             {selectedSession &&
             <TimePlayer
                 startTime={startTime}

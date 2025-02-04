@@ -1,0 +1,185 @@
+.driver-details-container {
+    width: 1rem;
+    height: 1rem;
+    overflow-x: visible;
+    overflow-y: visible;
+    position: relative;
+}
+
+.driver-details-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 6px;
+    z-index: 1;
+}
+
+.driver-headshot {
+    position: relative;
+    width: 150px;
+}
+
+.driver-headshot img {
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 0;
+    overflow-y: visible;
+}
+
+.driver-details{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: end;
+}
+.driver-details {
+    border-bottom: 1px solid;
+    border-color: var(--color-highlight);
+}
+
+.driver-number {
+    font-size: 2rem;
+    font-weight: 800;
+    font-style: italic;
+    text-align: center;
+    align-self: center;
+    min-width: 50px;
+    transform: scaleY(2);
+}
+
+.driver-name {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: end;
+    padding: 0 0 0 8px;
+    min-width: 100px;
+}
+.driver-name .first-name {
+    font-size: 1rem;
+    text-align: left;
+    font-weight: bold;
+    padding: 2px;
+}
+.driver-name .last-name {
+    font-size: 1rem;
+    text-align: left;
+    font-weight: bolder;
+    padding: 2px;
+}
+.driver-name .team-name {
+    font-size: 0.8rem;
+    text-align: right;
+    font-weight: bold;
+    font-style: oblique;
+    padding: 2px;
+}
+
+
+
+/* car detail styling */
+
+.car-details {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: end;
+    width: 100%;
+    padding: 6px 0 0 0;
+}
+
+.car-speedometer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.car-gear-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    font-weight: bold;
+    width: 100%;
+}
+
+.car-gear {
+    color: var(--color-text-secondary);
+    font-size: 0.8rem; /* Base small size */
+}
+
+.car-gear.current-gear {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: var(--color-text-primary);
+}
+
+.car-speed-pedal-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+.car-drs {
+    font-size: 0.7rem;
+    border: 1px solid;
+    border-radius: 4px;
+    padding: 2px 4px;
+    flex: 1;
+    text-align: center;
+}
+
+.car-speed {
+    font-size: 1.6rem;
+    font-weight: bold;
+    font-style: italic;
+    text-align: center;
+    align-self: center;
+    min-width: 60px;
+    flex: 0.1;
+}
+
+.car-pedals {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-end;
+    flex: 1;
+}
+
+.car-pedals span {
+    font-size: 0.5rem;
+    font-weight: bold;
+    color: var(--color-text-secondary);
+}
+
+.car-throttle-shadow, .car-brake-shadow {
+    position: relative;
+    background: linear-gradient(to right, #424242, #3f3f3f);
+    height: 5px;
+    width: 100%;
+    margin: 2px 0;
+}
+
+.car-throttle, .car-brake {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 5px;
+    width: 50%;
+}
+
+.car-throttle {
+    background: linear-gradient(to right, #4caf50, #8bc34a);
+}
+.car-brake {
+    background: linear-gradient(to right, #f44336, #ff5722);
+}

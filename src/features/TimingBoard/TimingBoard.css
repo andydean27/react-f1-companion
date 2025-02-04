@@ -123,7 +123,7 @@
     align-items: center;
 }
 
-.driver-name {
+.driver-acronym {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
