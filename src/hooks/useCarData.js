@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from 'react';
 import { fetchOpenf1Data } from '../services/fetchSessionData';
 import { useCurrentTime, usePlayback } from '../contexts/Contexts';
 
-export const useLocationData = (sessionKey) => {
+export const useCarData = (sessionKey, driver) => {
     const [carData, setCarData] = useState([]);
     const { isPlaying } = usePlayback();
     const { currentTime } = useCurrentTime();
@@ -24,7 +24,7 @@ export const useLocationData = (sessionKey) => {
                 'date',                 // dateProperty
                 10000,                  // bufferUp
                 5000,                   // bufferDown
-                '',                   // other url args
+                `&driver_number=${driver.driver_number}`,                   // other url args
                 true);                  // log
             
             setCarData(data);
@@ -38,7 +38,7 @@ export const useLocationData = (sessionKey) => {
             console.log('Clearing car data interval...');
             clearInterval(intervalID);
          } // Cleanup on unmount or when dependencies change
-    }, [isPlaying, sessionKey]);
+    }, [isPlaying, sessionKey, driver]);
     
 
     return carData;

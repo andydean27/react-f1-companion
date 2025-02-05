@@ -1,16 +1,58 @@
 import { useState } from "react";
 import {Rnd} from 'react-rnd';
+import { useContext, useEffect, useRef } from "react";
+import { SelectedSessionContext, useCurrentTime, usePlayback } from "../../contexts/Contexts";
+import { useCarData } from "../../hooks/useCarData";
+
 import './DriverDetails.css';
 
 const DriverDetails = ({ driver }) => {
+    //Contexts
+    const { selectedSession } = useContext(SelectedSessionContext);
+    const { isPlaying, setIsPlaying } = usePlayback();
+    const { currentTime, setCurrentTime } = useCurrentTime();
+    const currentTimeRef = useRef(currentTime);
+
     // States
     const [currentCarData, setCurrentCarData] = useState(null);
+
+    // Hooks
+    const carData = useCarData(selectedSession?.session_key, driver);
+
+    useEffect(() => {
+        currentTimeRef.current = currentTime;
+    }, [currentTime]);
+
+    // Set up interval to get current car data
+    useEffect(() => {
+        if (!selectedSession || !carData) return;
+
+        if (!isPlaying) return; // Skip interval creation if not playing
+
+        const updateCarData = () => {
+            // Get the last data point that is less than or equal to the current time
+            const sortedCarData = carData.sort((a, b) => new Date(b.date) - new Date(a.date));
+            const currentData = sortedCarData.find(data => new Date(data.date).getTime() <= currentTimeRef.current);
+            // console.log(currentTimeRef.current, new Date(currentData.date).getTime(), currentData, carData);
+            setCurrentCarData(currentData);
+        };
+
+        updateCarData(); // fetch immediately when isPlaying is set to true
+
+        const intervalID = setInterval(updateCarData, 200);
+
+        return () => {
+            console.log('Clearing car data interval...');
+            clearInterval(intervalID);
+        } // Cleanup on unmount or when dependencies change
+    }, [selectedSession, carData, isPlaying]);
 
     return (
         <Rnd
             default={{
-                x: 0,
-                y: 0}}
+                x: window.innerWidth/2, // Adjust 300 to the width of your component
+                y: window.innerHeight/2 // Adjust 200 to the height of your component
+            }}
             enableResizing={{
                 top: false,
                 right: false,
@@ -77,7 +119,7 @@ const CarSpeedometer = ({ currentCarData }) => {
                 <div className={`car-gear ${currentCarData?.n_gear === 8 ? "current-gear" : ""}`}> 8 </div>
             </div>
             <div className="car-speed-pedal-content">
-                <div className="car-drs">
+                <div className={`car-drs ${currentCarData?.drs > 9 ? "active" : ""}`}>
                     DRS
                 </div>
                 <div className="car-speed">
@@ -86,11 +128,11 @@ const CarSpeedometer = ({ currentCarData }) => {
                 <div className="car-pedals">
                     <span>Throttle</span>
                     <div className="car-throttle-shadow">
-                        <div className="car-throttle">
+                        <div className="car-throttle" style={{width: `${currentCarData?.throttle || 0}%`}}>
                         </div>
                     </div>
                     <div className="car-brake-shadow">
-                        <div className="car-brake">
+                        <div className="car-brake" style={{width: `${currentCarData?.brake || 0}%`}}>
                         </div>
                     </div>
                     <span>Brake</span>
