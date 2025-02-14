@@ -1,0 +1,72 @@
+
+.input-slider-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    width: 100%;
+
+}
+
+.input-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    flex: 1;
+    height: 4px;
+    background-color: var(--color-highlight);
+    border-radius: 2px;
+    opacity: 0.9;
+    margin: 8px 0 8px 0;
+}
+
+.input-slider:hover {
+    opacity: 1;
+}
+
+.input-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 4px;
+    height: 16px;
+    border-radius: 2px;
+    background: var(--color-highlight);
+    cursor: pointer;
+}
+
+.input-label {
+    color: var(--color-text-primary);
+    font-size: 0.6rem;
+    flex: 0.5;
+}
+
+.input-number {
+    color: var(--color-text-primary);
+    font-size: 0.6rem;
+    flex: 0.1;
+    text-align: right;
+    background: none;
+    border: none;
+}
+
+.input-number::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+.input-label .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    /* background-color: var(--color-background);
+    color: var(--color-text-primary);
+    text-align: center;
+    border-radius: 6px; */
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+}
+
+.input-label:hover .tooltiptext {
+    visibility: visible;
+}

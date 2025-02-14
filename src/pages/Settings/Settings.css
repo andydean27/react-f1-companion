@@ -1,0 +1,27 @@
+
+
+.settings-container {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.5rem;
+    transition: all 0.5s;
+}
+
+.settings-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.settings-top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.settings-section-header {
+    color: var(--color-text-primary);
+    font-size: 1rem;
+}

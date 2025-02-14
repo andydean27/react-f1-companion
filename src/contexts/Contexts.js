@@ -10,6 +10,8 @@ const PlaybackContext = createContext();
 const DriversContext = createContext();
 const SelectedDriverContext = createContext();
 
+const SettingsContext = createContext();
+
 export const AppProvider = ({children}) => {
     const [selectedSession, setSelectedSession] = useState(null);
     const [isLive, setIsLive] = useState(false);
@@ -17,6 +19,28 @@ export const AppProvider = ({children}) => {
     const [selectedDriver, setSelectedDriver] = useState(null);
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTime, setCurrentTime] = useState(null);
+    
+    const defaultSettings = {
+        theme: 'dark',
+        broadcastDelay: 5000,
+        locationFrequency: 5000,
+        locationBuffer: 10000,
+        carDataFrequency: 5500,
+        carDataBuffer: 10000,
+        intervalFrequency: 2000,
+        positionFrequency: 2500,
+        lapFrequency: 5000,
+        stintFrequency: 5000,
+        raceControlFrequency: 2000,
+        teamRadioFrequency: 5000,
+        weatherFrequency: 30000,
+    };
+    const [settings, setSettings] = useState(() => {
+        const savedSettings = localStorage.getItem('appSettings');
+        return savedSettings ? JSON.parse(savedSettings) : defaultSettings;
+    });
+
+    
 
     return (
         <SelectedSessionContext.Provider value={{selectedSession,setSelectedSession}}>
@@ -25,7 +49,9 @@ export const AppProvider = ({children}) => {
         <IsLiveContext.Provider value = {{isLive, setIsLive}}>
         <CurrentTimeContext.Provider value = {{currentTime, setCurrentTime}}>
         <PlaybackContext.Provider value = {{isPlaying, setIsPlaying}}>
+        <SettingsContext.Provider value = {{settings, setSettings}}>
             {children}
+        </SettingsContext.Provider>
         </PlaybackContext.Provider>
         </CurrentTimeContext.Provider>
         </IsLiveContext.Provider>
@@ -40,3 +66,4 @@ export const useCurrentTime = () => useContext(CurrentTimeContext);
 export const useDrivers = () => useContext(DriversContext);
 export const useSelectedDriver = () => useContext(SelectedDriverContext);
 export const useIsLive = () => useContext(IsLiveContext);
+export const useSettings = () => useContext(SettingsContext);

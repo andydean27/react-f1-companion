@@ -12,6 +12,7 @@ import DriverDetails from "../../features/DriverDetails/DriverDetails";
 import { useLapData } from "../../hooks/useLapData";
 import { useRaceControlData } from "../../hooks/useRaceControlData";
 import { generateTimeMarkers, generateSectionMarkers } from "../../utils/SessionDataProcessing";
+import Settings from "../Settings/Settings";
 
 
 const MainPage = () => {
@@ -89,7 +90,9 @@ const MainPage = () => {
                 onTimeUpdate={handleTimeUpdate}
                 onPlayUpdate={handlePlayUpdate}
             />
+            
             }
+            <Settings/>
         </div>
     );
 };
