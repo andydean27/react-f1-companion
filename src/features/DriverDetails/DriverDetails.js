@@ -119,7 +119,7 @@ const CarSpeedometer = ({ currentCarData }) => {
                 <div className={`car-gear ${currentCarData?.n_gear === 8 ? "current-gear" : ""}`}> 8 </div>
             </div>
             <div className="car-speed-pedal-content">
-                <div className={`car-drs ${currentCarData?.drs > 9 ? "active" : ""}`}>
+                <div className={`car-drs ${currentCarData?.drs === 8 ? "available" : currentCarData?.drs > 9 ? "active" : ""}`}>
                     DRS
                 </div>
                 <div className="car-speed">
