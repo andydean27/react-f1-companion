@@ -26,7 +26,7 @@ const Settings = () => {
         carDataBuffer: 10000,
         intervalFrequency: 2000,
         positionFrequency: 2500,
-        lapFrequency: 5000,
+        lapFrequency: 3000,
         stintFrequency: 5000,
         raceControlFrequency: 2000,
         teamRadioFrequency: 5000,
@@ -45,6 +45,7 @@ const Settings = () => {
             ) : (
                 <div className="settings-content">
                     <h3>Settings</h3>
+                    <span className="settings-text">Note: Session will need to be refreshed for settings change to take effect</span>
                     <div className="settings-top">
                         <select 
                             value={settings.theme}

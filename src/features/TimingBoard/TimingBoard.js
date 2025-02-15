@@ -1,7 +1,7 @@
 import { Rnd } from "react-rnd";
 import { useEffect, useContext, useRef, useState } from "react";
 import { updateTargetObject, addFastestLapToDrivers } from "../../utils/DriverDataProcessing";
-import { CurrentTimeContext, SelectedSessionContext, useCurrentTime, usePlayback, useDrivers, useSelectedDriver } from "../../contexts/Contexts";
+import { CurrentTimeContext, SelectedSessionContext, useCurrentTime, usePlayback, useDrivers, useSelectedDriver, useSettings, useIsLive } from "../../contexts/Contexts";
 import { useIntervalData } from "../../hooks/useIntervalData";
 import { usePositionData } from "../../hooks/usePositionData";
 import DriverTiming from "./DriverTiming";
@@ -22,6 +22,11 @@ const TimingBoard = () => {
     const driversRef = useRef(drivers);
 
     const { selectedDriver, setSelectedDriver } = useSelectedDriver();
+
+    const {settings } = useSettings();
+    const settingsRef = useRef(settings);
+
+    const { isLive } = useIsLive();
 
     // States
     const [expanded, setExpanded] = useState(false);
@@ -71,6 +76,10 @@ const TimingBoard = () => {
         stintsRef.current = stints;
     }, [stints]);
 
+    useEffect(() => {
+        settingsRef.current = settings;
+    }, [settings]);
+
     // New driver data for timing board
     useEffect(() => {
         if (!selectedSession){
@@ -87,7 +96,7 @@ const TimingBoard = () => {
                     intervalsRef.current,
                     'date',
                     'latest',
-                    currentTimeRef.current,
+                    currentTimeRef.current - settingsRef.current.broadcastDelay*isLive,
                     'date',
                     () => true, // No additional filtering
                     (interval) => ({ latest_interval: interval }) // Add the latestInterval property
@@ -101,7 +110,7 @@ const TimingBoard = () => {
                     positionsRef.current,
                     'date',
                     'latest',
-                    currentTimeRef.current,
+                    currentTimeRef.current - settingsRef.current.broadcastDelay*isLive,
                     'date',
                     () => true, // No additional filtering
                     (position) => ({ latest_position: position.position }) // Add the latestInterval property
@@ -113,7 +122,7 @@ const TimingBoard = () => {
                     positionsRef.current,
                     'date',
                     'smallest',
-                    currentTimeRef.current,
+                    currentTimeRef.current - settingsRef.current.broadcastDelay*isLive,
                     'date',
                     () => true, // No additional filtering
                     (position) => ({ initial_position: position.position }) // Add the latestInterval property
@@ -133,7 +142,7 @@ const TimingBoard = () => {
                     lapsRef.current,
                     'lap_duration',
                     'smallest',
-                    currentTimeRef.current,
+                    currentTimeRef.current - settingsRef.current.broadcastDelay*isLive,
                     'date_start',
                     (lap) => lap.lap_duration > 0, // No additional filtering
                     (lap) => ({ fastest_lap: lap }) // Add the latestInterval property
@@ -145,7 +154,7 @@ const TimingBoard = () => {
                     lapsRef.current,
                     'date_start',
                     'latest',
-                    currentTimeRef.current,
+                    currentTimeRef.current - settingsRef.current.broadcastDelay*isLive,
                     'date_start',
                     () => true, // No additional filtering
                     (lap) => ({ current_lap: lap }) // Add the latestInterval property

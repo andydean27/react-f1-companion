@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useIsLive, usePlayback, useCurrentTime } from "../contexts/Contexts";
+import { useIsLive, usePlayback, useCurrentTime, useSettings } from "../contexts/Contexts";
 import { fetchOpenf1Data } from "../services/fetchSessionData";
 
 
@@ -7,6 +7,7 @@ export const usePositionData = (sessionKey) => {
     const [positions, setPositions] = useState([]);
     const { isPlaying } = usePlayback();
     const { isLive } = useIsLive();
+    const { settings } = useSettings();
     // const { currentTime } = useCurrentTime();
     // const currentTimeRef = useRef(currentTime);
 
@@ -40,7 +41,7 @@ export const usePositionData = (sessionKey) => {
         }
 
         // If session is live start interval to continuously load data
-        const intervalID = setInterval(fetchData, 5000);
+        const intervalID = setInterval(fetchData, settings.positionFrequency);
     
         return () => {
             console.log('Clearing position data interval...');

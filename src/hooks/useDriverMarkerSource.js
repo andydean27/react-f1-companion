@@ -1,5 +1,5 @@
 import { useMemo, useRef, useState, useEffect, useContext, useCallback } from 'react';
-import { SelectedSessionContext, useSelectedDriver, useCurrentTime } from '../contexts/Contexts';
+import { SelectedSessionContext, useSelectedDriver, useCurrentTime, useIsLive, useSettings } from '../contexts/Contexts';
 import { useLocationData } from './useLocationData';
 import { getTrackCoordinates } from '../config/trackCoordinates';
 import { GetCurrentLocation } from '../utils/DriverDataProcessing';
@@ -13,6 +13,9 @@ const useDriverMarkerSource = (drivers) => {
     const { selectedSession } = useContext(SelectedSessionContext);
     const { selectedDriver } = useSelectedDriver();
     const { currentTime } = useCurrentTime();
+    const { isLive } = useIsLive();
+    const { settings } = useSettings();
+
 
     // Refs
     const selectedDriverRef = useRef(selectedDriver);
@@ -42,12 +45,17 @@ const useDriverMarkerSource = (drivers) => {
         if (!selectedSession) return;
 
         const trackData = getTrackCoordinates(selectedSession.location);
-        const updatedDrivers = GetCurrentLocation(drivers, locationsRef.current, currentTimeRef.current, trackData);
+        const updatedDrivers = GetCurrentLocation(
+            drivers, 
+            locationsRef.current, 
+            currentTimeRef.current - settings.broadcastDelay*isLive, 
+            trackData
+        );
 
         if (updatedDrivers) {
             setCurrentDriverLocations(updatedDrivers);
         }
-    }, [selectedSession, drivers]);
+    }, [selectedSession, drivers, settings]);
 
     useEffect(() => {
         if (!selectedSession) return;

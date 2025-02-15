@@ -28,8 +28,8 @@ const RaceMap = () => {
     const [currentTrack, setCurrentTrack] = useState(null);
 
     // Hooks
-    const locations = useLocationData(selectedSession?.session_key);
-    const locationsRef = useRef(locations);
+    // const locations = useLocationData(selectedSession?.session_key);
+    // const locationsRef = useRef(locations);
 
     // const driverLayerSourceData = useDriverMapSource(driversRef.current);
 

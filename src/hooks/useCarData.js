@@ -1,13 +1,15 @@
 // useLocationData.js
 import { useEffect, useState, useRef } from 'react';
 import { fetchOpenf1Data } from '../services/fetchSessionData';
-import { useCurrentTime, usePlayback } from '../contexts/Contexts';
+import { useCurrentTime, useIsLive, usePlayback, useSettings } from '../contexts/Contexts';
 
 export const useCarData = (sessionKey, driver) => {
     const [carData, setCarData] = useState([]);
     const { isPlaying } = usePlayback();
     const { currentTime } = useCurrentTime();
     const currentTimeRef = useRef(currentTime);
+    const { settings } = useSettings();
+    const { isLive } = useIsLive();
 
     useEffect(() => {
         currentTimeRef.current = currentTime;
@@ -20,10 +22,10 @@ export const useCarData = (sessionKey, driver) => {
             const data = await fetchOpenf1Data(
                 'car_data',             // endPoint
                 sessionKey,             // sessionKey
-                currentTimeRef.current, // currentTime
+                currentTimeRef.current - settings.broadcastDelay*isLive, // currentTime
                 'date',                 // dateProperty
-                10000,                  // bufferUp
-                5000,                   // bufferDown
+                settings.carDataBuffer,                  // bufferUp
+                settings.carDataBuffer,                   // bufferDown
                 `&driver_number=${driver.driver_number}`,                   // other url args
                 true);                  // log
             
@@ -32,7 +34,7 @@ export const useCarData = (sessionKey, driver) => {
 
         fetchData(); // fetch immediately when isPlaying is set to true
 
-        const intervalID = setInterval(fetchData, 5000);
+        const intervalID = setInterval(fetchData, settings.carDataFrequency);
     
         return () => {
             console.log('Clearing car data interval...');

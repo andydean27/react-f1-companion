@@ -1,4 +1,8 @@
-
+.settings-text {
+    color: var(--color-text-primary);
+    font-size: 0.5rem;
+    white-space: pre-wrap;
+}
 
 .settings-container {
     position: absolute;

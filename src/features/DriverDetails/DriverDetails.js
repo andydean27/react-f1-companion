@@ -1,7 +1,7 @@
 import { useState } from "react";
 import {Rnd} from 'react-rnd';
 import { useContext, useEffect, useRef } from "react";
-import { SelectedSessionContext, useCurrentTime, usePlayback } from "../../contexts/Contexts";
+import { SelectedSessionContext, useCurrentTime, useIsLive, usePlayback, useSettings } from "../../contexts/Contexts";
 import { useCarData } from "../../hooks/useCarData";
 
 import './DriverDetails.css';
@@ -12,6 +12,8 @@ const DriverDetails = ({ driver }) => {
     const { isPlaying, setIsPlaying } = usePlayback();
     const { currentTime, setCurrentTime } = useCurrentTime();
     const currentTimeRef = useRef(currentTime);
+    const { settings } = useSettings();
+    const { isLive } = useIsLive();
 
     // States
     const [currentCarData, setCurrentCarData] = useState(null);
@@ -32,7 +34,7 @@ const DriverDetails = ({ driver }) => {
         const updateCarData = () => {
             // Get the last data point that is less than or equal to the current time
             const sortedCarData = carData.sort((a, b) => new Date(b.date) - new Date(a.date));
-            const currentData = sortedCarData.find(data => new Date(data.date).getTime() <= currentTimeRef.current);
+            const currentData = sortedCarData.find(data => new Date(data.date).getTime() <= currentTimeRef.current - settings.broadcastDelay*isLive);
             // console.log(currentTimeRef.current, new Date(currentData.date).getTime(), currentData, carData);
             setCurrentCarData(currentData);
         };
@@ -45,7 +47,7 @@ const DriverDetails = ({ driver }) => {
             console.log('Clearing car data interval...');
             clearInterval(intervalID);
         } // Cleanup on unmount or when dependencies change
-    }, [selectedSession, carData, isPlaying]);
+    }, [selectedSession, carData, isPlaying, settings]);
 
     return (
         <Rnd

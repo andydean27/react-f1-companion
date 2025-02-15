@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useIsLive, usePlayback, useCurrentTime } from "../contexts/Contexts";
+import { useIsLive, usePlayback, useCurrentTime, useSettings } from "../contexts/Contexts";
 import { fetchOpenf1Data } from "../services/fetchSessionData";
 
 
@@ -7,6 +7,7 @@ export const useRaceControlData = (sessionKey) => {
     const [raceControl, setRaceControl] = useState([]);
     const { isPlaying } = usePlayback();
     const { isLive } = useIsLive();
+    const { settings } = useSettings();
     // const { currentTime } = useCurrentTime();
     // const currentTimeRef = useRef(currentTime);
 
@@ -47,7 +48,7 @@ export const useRaceControlData = (sessionKey) => {
         }
 
         // If session is live start interval to continuously load data
-        const intervalID = setInterval(fetchData, 2000);
+        const intervalID = setInterval(fetchData, settings.raceControlFrequency);
     
         return () => {
             console.log('Clearing race control data interval...');

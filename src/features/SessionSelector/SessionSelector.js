@@ -74,7 +74,7 @@ const SessionSelector = () => {
         );
         setSelectedSession(selected || null);
         console.log(selected)
-        setIsLive(false);
+        setIsLive(false); // make sure is set to false, set to true to test when no live session is available
     };
 
     // Handle live button click

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useIsLive, usePlayback, useCurrentTime } from "../contexts/Contexts";
+import { useIsLive, usePlayback, useCurrentTime, useSettings } from "../contexts/Contexts";
 import { fetchOpenf1Data } from "../services/fetchSessionData";
 
 
@@ -9,6 +9,7 @@ export const useIntervalData = (sessionKey) => {
     const { isLive } = useIsLive();
     const { currentTime } = useCurrentTime();
     const currentTimeRef = useRef(currentTime);
+    const {settings} = useSettings();
 
     useEffect(() => {
         currentTimeRef.current = currentTime;
@@ -22,7 +23,7 @@ export const useIntervalData = (sessionKey) => {
 
             // If session is live then use the slider time to continuously update the intervals
             if (isLive) {
-                _currentTime = currentTimeRef.current
+                _currentTime = currentTimeRef.current  - settings.broadcastDelay*isLive
             }
 
             const data = await fetchOpenf1Data(
@@ -47,7 +48,7 @@ export const useIntervalData = (sessionKey) => {
         }
 
         // If session is live start interval to continuously load data
-        const intervalID = setInterval(fetchData, 5000);
+        const intervalID = setInterval(fetchData, settings.intervalFrequency);
     
         return () => {
             console.log('Clearing interval data interval...');

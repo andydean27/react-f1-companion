@@ -1,13 +1,15 @@
 // useLocationData.js
 import { useEffect, useState, useRef } from 'react';
 import { fetchOpenf1Data } from '../services/fetchSessionData';
-import { useCurrentTime, usePlayback } from '../contexts/Contexts';
+import { useCurrentTime, useIsLive, usePlayback, useSettings } from '../contexts/Contexts';
 
 export const useLocationData = (sessionKey) => {
     const [locations, setLocations] = useState([]);
     const { isPlaying } = usePlayback();
     const { currentTime } = useCurrentTime();
     const currentTimeRef = useRef(currentTime);
+    const { settings } = useSettings();
+    const { isLive } = useIsLive();
 
     useEffect(() => {
         currentTimeRef.current = currentTime;
@@ -20,10 +22,10 @@ export const useLocationData = (sessionKey) => {
             const data = await fetchOpenf1Data(
                 'location',             // endPoint
                 sessionKey,             // sessionKey
-                currentTimeRef.current, // currentTime
+                currentTimeRef.current  - settings.broadcastDelay*isLive, // currentTime
                 'date',                 // dateProperty
-                10000,                  // bufferUp
-                5000,                   // bufferDown
+                settings.locationBuffer,                  // bufferUp
+                settings.locationBuffer,                   // bufferDown
                 '',                   // other url args
                 true);                  // log
             
@@ -32,7 +34,7 @@ export const useLocationData = (sessionKey) => {
 
         fetchData(); // fetch immediately when isPlaying is set to true
 
-        const intervalID = setInterval(fetchData, 5000);
+        const intervalID = setInterval(fetchData, settings.locationFrequency);
     
         return () => {
             console.log('Clearing location data interval...');
