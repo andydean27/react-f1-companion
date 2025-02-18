@@ -76,10 +76,12 @@ const MainPage = () => {
             {/* <TrackMap /> */}
             <RaceMap/>
             <SessionSelector/>
-            <TimingBoard/>
+            {selectedSession && <TimingBoard/>}
+
             {selectedDriver && 
             <DriverDetails driver={selectedDriver}/>
             }
+
             {selectedSession &&
             <TimePlayer
                 startTime={startTime}
