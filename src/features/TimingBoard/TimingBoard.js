@@ -89,6 +89,9 @@ const TimingBoard = () => {
         const updateDriverData = () => {
             let updatedDrivers = driversRef.current;
 
+            // Skip if updated drivers in null
+            if (!updatedDrivers) return;
+
             if (intervalsRef.current) {
                 // Get current interval for each driver based on current time
                 updatedDrivers = updateTargetObject(
