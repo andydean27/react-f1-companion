@@ -5,6 +5,7 @@ const TimePlayer = ({ startTime, endTime, value, timeMarkers, sectionMarkers, on
     const [currentTime, setCurrentTime] = useState(value); // Tracks the current time
     const [isPlaying, setIsPlaying] = useState(false); // Playback state
     const [playbackSpeed, setPlaybackSpeed] = useState(1); // Normal speed
+    const [isUserInteracting, setIsUserInteracting] = useState(false); // Tracks user interaction with the slider
     const intervalRef = useRef(null);
 
     // Sync `currentTime` with `value` when `value` changes
@@ -47,6 +48,17 @@ const TimePlayer = ({ startTime, endTime, value, timeMarkers, sectionMarkers, on
     // Handle slider changes
     const handleSliderChange = (e) => {
         setCurrentTime(Number(e.target.value));
+    };
+
+    // Handle slider interaction start
+    const handleSliderMouseDown = () => {
+        setIsUserInteracting(true);
+    };
+
+    // Handle slider interaction end
+    const handleSliderMouseUp = () => {
+        setIsUserInteracting(false);
+        setIsPlaying(false);
     };
 
     // Play/Pause toggle
@@ -152,6 +164,8 @@ const TimePlayer = ({ startTime, endTime, value, timeMarkers, sectionMarkers, on
                     max={endTime}
                     value={currentTime}
                     onChange={handleSliderChange}
+                    onMouseDown={handleSliderMouseDown}
+                    onMouseUp={handleSliderMouseUp}
                     className="time-slider"
                 />
                 {generateTimeMarkers()}

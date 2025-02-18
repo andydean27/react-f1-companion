@@ -11,12 +11,13 @@ export const useCarData = (sessionKey, driver) => {
     const { settings } = useSettings();
     const { isLive } = useIsLive();
 
+    // Reference current time
     useEffect(() => {
         currentTimeRef.current = currentTime;
     }, [currentTime]);
 
     useEffect(() => {
-        if (!isPlaying || !sessionKey) return; // Skip interval creation if not playing
+        if (!sessionKey) return; // Skip interval creation if session not selected
         
         const fetchData = async () => {
             const data = await fetchOpenf1Data(
@@ -29,10 +30,13 @@ export const useCarData = (sessionKey, driver) => {
                 `&driver_number=${driver.driver_number}`,                   // other url args
                 true);                  // log
             
-            setCarData(data);
+            setCarData(data || carData); // if the new data set is null due to errors keep the existing data
         };
 
         fetchData(); // fetch immediately when isPlaying is set to true
+
+        // If not playing skip
+        if (!isPlaying) return;
 
         const intervalID = setInterval(fetchData, settings.carDataFrequency);
     

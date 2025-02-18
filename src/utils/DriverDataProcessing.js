@@ -131,17 +131,16 @@ export const updateTargetObject = (
   ) => {
     const comparisonMap = {};
     
-   
+    // Do nothing if targetObject is empty
+    if (!targetObject) return;
 
     dataset.forEach((item) => {
         const { driver_number } = item;
         const comparisonValue = item[comparisonProperty];
         const itemTime = new Date(item[dateProperty]).getTime();
 
-         // Skip items that don't pass the filter function or the time constraint
+        // Skip items that don't pass the filter function or the time constraint
         if (!filterFn(item) || (currentTime && itemTime > currentTime)) return;
-
-        
   
         // Determine if the item should replace the current entry in comparisonMap
         if (!comparisonMap[driver_number]) {

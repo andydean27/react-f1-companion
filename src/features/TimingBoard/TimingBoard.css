@@ -16,10 +16,16 @@
 
 .timing-board .controls {
     display: flex;
-    flex-direction: row;
+    flex-direction: row-reverse;
     justify-content: space-between;
     padding: 5px;
     flex-shrink: 0; /* Prevent it from shrinking */
+}
+
+.timing-board .controls .title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .driver-timing-container {

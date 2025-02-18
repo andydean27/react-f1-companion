@@ -16,7 +16,7 @@ export const useLocationData = (sessionKey) => {
     }, [currentTime]);
 
     useEffect(() => {
-        if (!isPlaying || !sessionKey) return; // Skip interval creation if not playing
+        if (!sessionKey) return; // Skip interval creation if session not selected
         
         const fetchData = async () => {
             const data = await fetchOpenf1Data(
@@ -29,10 +29,13 @@ export const useLocationData = (sessionKey) => {
                 '',                   // other url args
                 true);                  // log
             
-            setLocations(data);
+            setLocations(data || locations); // if the new data set is null due to errors keep the existing data
         };
 
         fetchData(); // fetch immediately when isPlaying is set to true
+
+        // If not playing skip
+        if (!isPlaying) return;
 
         const intervalID = setInterval(fetchData, settings.locationFrequency);
     

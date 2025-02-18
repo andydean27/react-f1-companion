@@ -16,6 +16,7 @@ export const useIntervalData = (sessionKey) => {
     }, [currentTime]);
 
     useEffect(() => {
+        if (!sessionKey) return; // Skip interval creation if session not selected
 
         const fetchData = async () => {
             
@@ -36,16 +37,17 @@ export const useIntervalData = (sessionKey) => {
                 '',                   // other url args
                 true);          // log
             
-            setIntervals(data);
+            setIntervals(data || intervals); // if the new data set is null due to errors keep the existing data
         }
 
         // Initially load data
         fetchData();
 
+        // If not playing skip
+        if (!isPlaying) return;
+
         // If session is not live return and don't set up interval
-        if (!isLive) {
-            return;
-        }
+        if (!isLive) return;
 
         // If session is live start interval to continuously load data
         const intervalID = setInterval(fetchData, settings.intervalFrequency);

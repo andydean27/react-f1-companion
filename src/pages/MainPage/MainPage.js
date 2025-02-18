@@ -12,7 +12,7 @@ import DriverDetails from "../../features/DriverDetails/DriverDetails";
 import { useLapData } from "../../hooks/useLapData";
 import { useRaceControlData } from "../../hooks/useRaceControlData";
 import { generateTimeMarkers, generateSectionMarkers } from "../../utils/SessionDataProcessing";
-import Settings from "../Settings/Settings";
+import Settings from "../../features/Settings/Settings";
 
 
 const MainPage = () => {
@@ -76,10 +76,12 @@ const MainPage = () => {
             {/* <TrackMap /> */}
             <RaceMap/>
             <SessionSelector/>
-            <TimingBoard/>
+            {selectedSession && <TimingBoard/>}
+
             {selectedDriver && 
             <DriverDetails driver={selectedDriver}/>
             }
+
             {selectedSession &&
             <TimePlayer
                 startTime={startTime}

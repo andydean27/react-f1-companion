@@ -8,14 +8,9 @@ export const usePositionData = (sessionKey) => {
     const { isPlaying } = usePlayback();
     const { isLive } = useIsLive();
     const { settings } = useSettings();
-    // const { currentTime } = useCurrentTime();
-    // const currentTimeRef = useRef(currentTime);
-
-    // useEffect(() => {
-    //     currentTimeRef.current = currentTime;
-    // }, [currentTime]);
 
     useEffect(() => {
+        if (!sessionKey) return; // Skip interval creation if session not selected
 
         const fetchData = async () => {
 
@@ -29,16 +24,17 @@ export const usePositionData = (sessionKey) => {
                 '',                   // other url args
                 true);          // log
             
-            setPositions(data);
+            setPositions(data || positions); // if the new data set is null due to errors keep the existing data
         }
 
         // Initially load data
         fetchData();
 
+        // If not playing skip
+        if (!isPlaying) return;
+
         // If session is not live return and don't set up interval
-        if (!isLive) {
-            return;
-        }
+        if (!isLive) return;
 
         // If session is live start interval to continuously load data
         const intervalID = setInterval(fetchData, settings.positionFrequency);

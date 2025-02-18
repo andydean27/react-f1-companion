@@ -65,7 +65,7 @@ const Settings = () => {
                         max={60}
                         step={0.1}
                         unit='s'
-                        toolTipText='Delay of live broadcast, use this to align data to broadcast feed if wanted'
+                        toolTipText='Delay of live broadcast, use this to align data to broadcast feed if wanted. API is typically around 3 second delay, any less than that may cause stuttering. Only applied if live session is selected'
                     />
                     <span className="settings-section-header">Location API Call</span>
                     <InputSlider
