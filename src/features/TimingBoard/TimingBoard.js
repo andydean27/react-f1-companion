@@ -259,10 +259,10 @@ const TimingBoard = () => {
         >
             <div className="timing-board-content">
                 <div className="controls">
-                    <button className="button-round" onClick={toggleClose}>✕</button>
-                    <div>
+                    {/* <button className="button-round" onClick={toggleClose}>✕</button> */}
+                    <div className="title">
                         <h3>Timing</h3>
-                        <h6>{`Lap: ${currentLapNumber}`}</h6>
+                        <h6>{`Lap: ${currentLapNumber || "-"}`}</h6>
                     </div>
                     <button className="button-round" onClick={toggleExpanded}>{expanded ? "-" : "+"}</button>
                 </div>
