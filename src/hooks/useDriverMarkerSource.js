@@ -52,7 +52,7 @@ const useDriverMarkerSource = (drivers) => {
             trackData
         );
 
-        if (updatedDrivers) {
+        if (updatedDrivers) { // add  && locationsRef.current later
             setCurrentDriverLocations(updatedDrivers);
         }
     }, [selectedSession, drivers, settings]);

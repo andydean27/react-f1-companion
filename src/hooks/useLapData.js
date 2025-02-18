@@ -8,23 +8,12 @@ export const useLapData = (sessionKey) => {
     const { isPlaying } = usePlayback();
     const { isLive } = useIsLive();
     const {settings } = useSettings();
-    // const { currentTime } = useCurrentTime();
-    // const currentTimeRef = useRef(currentTime);
 
-    // useEffect(() => {
-    //     currentTimeRef.current = currentTime;
-    // }, [currentTime]);
 
     useEffect(() => {
+        if (!sessionKey) return; // Skip interval creation if session not selected
 
         const fetchData = async () => {
-            
-            // let _currentTime = undefined;
-
-            // // If session is live then use the slider time to continuously update the intervals
-            // if (isLive) {
-            //     _currentTime = currentTimeRef.current
-            // }
 
             const data = await fetchOpenf1Data(
                 'laps',    // endPoint
@@ -36,16 +25,17 @@ export const useLapData = (sessionKey) => {
                 '',                   // other url args
                 true);          // log
             
-            setLaps(data);
+            setLaps(data || laps); // if the new data set is null due to errors keep the existing data
         }
 
         // Initially load data
         fetchData();
 
+        // If not playing skip
+        if (!isPlaying) return;
+
         // If session is not live return and don't set up interval
-        if (!isLive) {
-            return;
-        }
+        if (!isLive) return;
 
         // If session is live start interval to continuously load data
         const intervalID = setInterval(fetchData, settings.lapFrequency);
