@@ -4,6 +4,8 @@ import { fetchDriverData} from "../../services/fetchSessionData";
 import RaceMap from "../../features/RaceMap/RaceMap";
 import SessionSelector from "../../features/SessionSelector/SessionSelector";
 import TimePlayer from "../../components/ui/TimePlayer";
+import RaceControl from "../../features/RaceControl/RaceControl";
+import Settings from "../../features/Settings/Settings";
 
 import './MainPage.css';
 import { SelectedSessionContext, usePlayback, useCurrentTime, useDrivers, useSelectedDriver } from "../../contexts/Contexts";
@@ -12,7 +14,7 @@ import DriverDetails from "../../features/DriverDetails/DriverDetails";
 import { useLapData } from "../../hooks/useLapData";
 import { useRaceControlData } from "../../hooks/useRaceControlData";
 import { generateTimeMarkers, generateSectionMarkers } from "../../utils/SessionDataProcessing";
-import Settings from "../../features/Settings/Settings";
+
 
 
 const MainPage = () => {
@@ -77,6 +79,7 @@ const MainPage = () => {
             <RaceMap/>
             <SessionSelector/>
             {selectedSession && <TimingBoard/>}
+            {(selectedSession && raceControl) && <RaceControl raceControl={raceControl}/>}
 
             {selectedDriver && 
             <DriverDetails driver={selectedDriver}/>
