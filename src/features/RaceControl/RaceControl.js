@@ -17,10 +17,14 @@ const RaceControl = ({ raceControl }) => {
         const interval = setInterval(() => {
             const filtered = raceControl.filter(control => 
                 (new Date(control.date).getTime() <= currentTimeRef.current) &&
-                (new Date(control.date).getTime() >= currentTimeRef.current - 30000)
+                (new Date(control.date).getTime() >= currentTimeRef.current - 180000) && 
+                (control.flag !== "CLEAR")
             );
 
-            setFilteredRaceControl(filtered);
+            // get last 5
+            const lastFive = filtered.slice(-5);
+
+            setFilteredRaceControl(lastFive);
         }, 3000);
 
         return () => clearInterval(interval);
@@ -29,10 +33,14 @@ const RaceControl = ({ raceControl }) => {
     return (
         <div className="race-control-container">
             {filteredRaceControl.map((control, index) => (
-                <RaceControlCard control={control} />
+                <RaceControlCard 
+                    control={control} 
+                    className={index !== filteredRaceControl.length - 1 ? "hidden" : ""}    
+                />
             ))}
         </div>
     );
 };
 
 export default RaceControl;
+

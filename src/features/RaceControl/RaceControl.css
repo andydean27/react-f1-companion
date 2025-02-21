@@ -5,20 +5,46 @@
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    top: 1rem;
-    height: 80%;
-    overflow-y: scroll;
+    top: 6rem;
+    width: 20rem;
+    max-height: 64px;
+    height: 64px;
     gap: 10px;
-    /* mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent); */
+    transition: max-height 0.5s ease-in-out, gap 0.5s ease-in-out;
+}
+
+.race-control-container > * {
+    /* position: absolute;
+    top: 0; */
+    margin-bottom: -74px;
+}
+
+.race-control-container:hover {
+    max-height: 80px;
+}
+.race-control-container:hover > * {
+    /* position: relative;
+    top: 0; */
+    opacity: 1;
+    margin-bottom: 0px;
+}
+
+.race-control-container:hover .race-control-card {
+    opacity: 1; /* Ensure opacity is set to 1 on hover */
 }
 
 .race-control-card {
     display: flex;
     flex-direction: row;
     box-sizing: border-box;
+    height: 64px;
     width: 20rem;
-    /* transition: opacity 0.5s ease-in-out; */
-    animation: fade-in 0.3s;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, margin 0.3s ease-in-out;
+    animation: fade-in 0.3s; 
+}
+
+.race-control-card.hidden {
+    opacity: 0;
 }
 
 @keyframes fade-in {
@@ -73,6 +99,16 @@
 }
 
 .race-control-details .message {
-    font-size: 0.6rem; /* Adjust the scaling factor as needed */
+    font-size: 0.7rem;
 }
 
+
+.icon-flag {
+    width: 42px;
+    /* filter: invert(50%) sepia(100%) saturate(500%) hue-rotate(90deg); */
+    fill: var(--color-highlight);
+}
+
+.img-fia {
+    width: 42px;
+}

@@ -2,10 +2,10 @@ import { useEffect } from "react";
 import "./RaceControl.css"
 // import "../../assets/fia-footer-logo.png"
 
-const RaceControlCard = ({control}) => {
+const RaceControlCard = ({control, className=""}) => {
 
     return (
-        <div className="race-control-card" >
+        <div className={`race-control-card ${className}`} >
             <div className="race-control-icon container" style={flagColourMap[control.flag]}>
                 <span>{categoryMap[control.category]}</span>
             </div>
@@ -22,9 +22,17 @@ const RaceControlCard = ({control}) => {
 export default RaceControlCard;
 
 const categoryMap = {
-    "Flag": "⚑",
-    "Other": <img src="./img/fia-footer-logo.png" alt="FIA Logo" style={{width: "42px"}}/>,
-    "Drs": <img src="./img/fia-footer-logo.png" alt="FIA Logo" style={{width: "42px"}}/>,
+    "Flag": (
+        <svg 
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            className="icon-flag"
+        >
+            <path d="M6,13.3l1.21.54A7.22,7.22,0,0,0,12.8,14a5.17,5.17,0,0,1,4.23.18l3,1.48V5.38l-2.08-1a7.18,7.18,0,0,0-5.87-.24A5.2,5.2,0,0,1,8,4L6,3.11V2H4V22H6Z"/>
+        </svg>
+    ),
+    "Other": <img src="./img/fia-footer-logo.png" alt="FIA Logo" className="img-fia"/>,
+    "Drs": <img src="./img/fia-footer-logo.png" alt="FIA Logo" className="img-fia"/>,
 }
 
 const flagColourMap = {
