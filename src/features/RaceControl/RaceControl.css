@@ -10,6 +10,7 @@
     max-height: 64px;
     height: 64px;
     gap: 10px;
+    align-items: center;
     transition: max-height 0.5s ease-in-out, gap 0.5s ease-in-out;
 }
 
@@ -19,9 +20,9 @@
     margin-bottom: -74px;
 }
 
-.race-control-container:hover {
+/* .race-control-container:hover {
     max-height: 80px;
-}
+} */
 .race-control-container:hover > * {
     /* position: relative;
     top: 0; */
@@ -38,7 +39,7 @@
     flex-direction: row;
     box-sizing: border-box;
     height: 64px;
-    width: 20rem;
+    width: 18rem;
     transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, margin 0.3s ease-in-out;
     animation: fade-in 0.3s; 
 }
@@ -62,6 +63,54 @@
 
 .race-control-card.fade-out {
     opacity: 0;
+}
+
+/* Flag card */
+
+.race-control-card.flag {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    height: 64px;
+    width: 18rem;
+}
+
+.flag-card-top {
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    height: 32px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: 0;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.flag-card-bottom {
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    height: 32px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-top: 0;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon-flag {
+    height: 28px;
+    fill: var(--color-highlight);
+}
+
+
+.icon-safety-car {
+    height: 48px;
+    fill: var(--color-highlight);
 }
 
 .race-control-icon {
@@ -90,23 +139,12 @@
     padding: 0.3rem;
 }
 
-.race-control-details .control {
-    font-weight: bold;
-}
-
-.race-control-details .time {
-    font-size: 0.6rem;
-}
-
-.race-control-details .message {
+.message {
     font-size: 0.7rem;
 }
 
-
-.icon-flag {
-    width: 42px;
-    /* filter: invert(50%) sepia(100%) saturate(500%) hue-rotate(90deg); */
-    fill: var(--color-highlight);
+.title {
+    font-weight: bold;
 }
 
 .img-fia {

@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useCurrentTime } from "../../contexts/Contexts";
 import RaceControlCard from "./RaceControlCard";
+import FlagCard from "./FlagCard";
 import "./RaceControl.css";
 
 const RaceControl = ({ raceControl }) => {
@@ -30,14 +31,42 @@ const RaceControl = ({ raceControl }) => {
         return () => clearInterval(interval);
     }, [raceControl]);
 
+    const getControlType = (control) => {
+        let ControlComponent;
+        
+        switch (control.category) {
+            case "Flag":
+                ControlComponent = FlagCard;
+                break;
+            case "Drs":
+                ControlComponent = RaceControlCard;
+                break;
+            default:
+                ControlComponent = RaceControlCard;
+        }
+
+        return ControlComponent;
+    }
+
     return (
         <div className="race-control-container">
-            {filteredRaceControl.map((control, index) => (
+            {filteredRaceControl.map((control, index) => {
+                const ControlComponent = getControlType(control);
+                return (
+                    <ControlComponent 
+                        control={control} 
+                        className={index !== filteredRaceControl.length - 1 ? "hidden" : ""}    
+                    />
+                );
+            }
+        )}
+            {/* {filteredRaceControl.map((control, index) => (
+
                 <RaceControlCard 
                     control={control} 
                     className={index !== filteredRaceControl.length - 1 ? "hidden" : ""}    
                 />
-            ))}
+            ))} */}
         </div>
     );
 };
