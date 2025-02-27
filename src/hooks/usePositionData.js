@@ -8,11 +8,14 @@ export const usePositionData = (sessionKey) => {
     const { isPlaying } = usePlayback();
     const { isLive } = useIsLive();
     const { settings } = useSettings();
+    const isFetching = useRef(false);
 
     useEffect(() => {
         if (!sessionKey) return; // Skip interval creation if session not selected
 
         const fetchData = async () => {
+            if (isFetching.current) return; // Skip if a fetch is already in progress
+            isFetching.current = true;
 
             const data = await fetchOpenf1Data(
                 'position',     // endPoint
@@ -25,6 +28,7 @@ export const usePositionData = (sessionKey) => {
                 true);          // log
             
             setPositions(data || positions); // if the new data set is null due to errors keep the existing data
+            isFetching.current = false;
         }
 
         // Initially load data

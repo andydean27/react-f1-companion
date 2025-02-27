@@ -10,6 +10,7 @@ export const useIntervalData = (sessionKey) => {
     const { currentTime } = useCurrentTime();
     const currentTimeRef = useRef(currentTime);
     const {settings} = useSettings();
+    const isFetching = useRef(false);
 
     useEffect(() => {
         currentTimeRef.current = currentTime;
@@ -19,6 +20,8 @@ export const useIntervalData = (sessionKey) => {
         if (!sessionKey) return; // Skip interval creation if session not selected
 
         const fetchData = async () => {
+            if (isFetching.current) return; // Skip if a fetch is already in progress
+            isFetching.current = true;
             
             let _currentTime = undefined;
 
@@ -38,6 +41,7 @@ export const useIntervalData = (sessionKey) => {
                 true);          // log
             
             setIntervals(data || intervals); // if the new data set is null due to errors keep the existing data
+            isFetching.current = false;
         }
 
         // Initially load data
