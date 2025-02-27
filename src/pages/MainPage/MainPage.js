@@ -5,6 +5,7 @@ import RaceMap from "../../features/RaceMap/RaceMap";
 import SessionSelector from "../../features/SessionSelector/SessionSelector";
 import TimePlayer from "../../components/ui/TimePlayer";
 import RaceControl from "../../features/RaceControl/RaceControl";
+import TeamRadio from "../../features/TeamRadio/TeamRadio";
 import Settings from "../../features/Settings/Settings";
 
 import './MainPage.css';
@@ -13,6 +14,7 @@ import TimingBoard from "../../features/TimingBoard/TimingBoard";
 import DriverDetails from "../../features/DriverDetails/DriverDetails";
 import { useLapData } from "../../hooks/useLapData";
 import { useRaceControlData } from "../../hooks/useRaceControlData";
+import { useTeamRadioData } from "../../hooks/useTeamRadio";
 import { generateTimeMarkers, generateSectionMarkers } from "../../utils/SessionDataProcessing";
 
 
@@ -28,6 +30,7 @@ const MainPage = () => {
     // Hooks
     const laps = useLapData(selectedSession?.session_key);
     const raceControl = useRaceControlData(selectedSession?.session_key);
+    const teamRadio = useTeamRadioData(selectedSession?.session_key);
 
     // States
     const [startTime, setStartTime] = useState(0);
@@ -77,9 +80,14 @@ const MainPage = () => {
             
             {/* <TrackMap /> */}
             <RaceMap/>
+
             <SessionSelector/>
+
             {selectedSession && <TimingBoard/>}
+
             {(selectedSession && raceControl) && <RaceControl raceControl={raceControl}/>}
+
+            {(selectedSession && teamRadio) && <TeamRadio teamRadio={teamRadio}/>}
 
             {selectedDriver && 
             <DriverDetails driver={selectedDriver}/>

@@ -46,7 +46,7 @@ export const fetchOpenf1Data = async (
 
             // Log the time taken to fetch the API
             if (log) {
-                console.log(`[Attempt ${attempts + 1}] API fetch time: ${timeToFetch}ms`);
+                console.log(`[Attempt ${attempts + 1}] ${endPoint}\t\tAPI fetch time:\t\t${timeToFetch}ms`);
             }
 
             // Check for response errors
@@ -57,8 +57,17 @@ export const fetchOpenf1Data = async (
             const data = await response.json();
             
             // Check if data is null or empty
-            if (data && data.length > 0) {
-                console.log(`[Success] Retrieved ${data.length} ${endPoint} records in ${timeToFetch}ms.`);
+            if (data.length === 0) {
+                if (log) {
+                    console.log(`[Empty] Retrieved 0 ${endPoint} records in ${timeToFetch}ms.`);
+                }
+                return null;
+            }
+
+            if (data) {
+                if (log) {
+                    console.log(`[Success] Retrieved ${data.length} ${endPoint} records in ${timeToFetch}ms.`);
+                }
                 return data;
             } else {
                 throw new Error(`Empty or null response received on attempt ${attempts + 1}.`);

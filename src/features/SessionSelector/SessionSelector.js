@@ -24,7 +24,7 @@ const SessionSelector = () => {
         const loadSessionData = async () => {
             const sessionData = await fetchSessionData();
             setSessions(sessionData);
-            setLiveSessionAvailable(sessionData.some((session) => session.end_time < Date.now()));
+            setLiveSessionAvailable(sessionData.some((session) => new Date(session.date_end).getTime() < Date.now()));
         };
 
         loadSessionData();
