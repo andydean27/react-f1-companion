@@ -18,10 +18,10 @@ const TimePlayer = ({ startTime, endTime, value, timeMarkers, sectionMarkers, on
         if (isPlaying) {
             intervalRef.current = setInterval(() => {
                 setCurrentTime((prevTime) => {
-                    const newTime = prevTime + 20 * playbackSpeed;
+                    const newTime = prevTime + 50 * playbackSpeed;
                     return newTime >= endTime ? endTime : newTime;
                 });
-            }, 20);
+            }, 50);
         } else {
             clearInterval(intervalRef.current);
         }
