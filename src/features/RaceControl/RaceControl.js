@@ -60,13 +60,7 @@ const RaceControl = ({ raceControl }) => {
                 );
             }
         )}
-            {/* {filteredRaceControl.map((control, index) => (
 
-                <RaceControlCard 
-                    control={control} 
-                    className={index !== filteredRaceControl.length - 1 ? "hidden" : ""}    
-                />
-            ))} */}
         </div>
     );
 };

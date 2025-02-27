@@ -1,37 +1,25 @@
 
 .race-control-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     top: 6rem;
-    width: 20rem;
-    max-height: 64px;
-    height: 64px;
-    gap: 10px;
     align-items: center;
-    transition: max-height 0.5s ease-in-out, gap 0.5s ease-in-out;
 }
 
 .race-control-container > * {
-    /* position: absolute;
-    top: 0; */
-    margin-bottom: -74px;
+    margin-bottom: -64px;
 }
 
-/* .race-control-container:hover {
-    max-height: 80px;
-} */
 .race-control-container:hover > * {
-    /* position: relative;
-    top: 0; */
     opacity: 1;
-    margin-bottom: 0px;
+    margin-bottom: 10px;
 }
 
 .race-control-container:hover .race-control-card {
-    opacity: 1; /* Ensure opacity is set to 1 on hover */
+    opacity: 1;
 }
 
 .race-control-card {
@@ -39,7 +27,7 @@
     flex-direction: row;
     box-sizing: border-box;
     height: 64px;
-    width: 18rem;
+    width: 20rem;
     transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, margin 0.3s ease-in-out;
     animation: fade-in 0.3s; 
 }
