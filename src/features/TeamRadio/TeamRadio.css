@@ -1,0 +1,74 @@
+
+
+.team-radio-container {
+    display: flex;
+    flex-direction: column-reverse;
+    position: absolute;
+    top: 3rem;
+    right: 3rem;
+}
+
+.team-radio-container button {
+    background-color: transparent;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    padding: 0;
+    margin: 0;
+}
+
+.team-radio-container button:hover {
+    background-color: rgba(255, 255, 255, 0.20);
+}  
+
+.team-radio-container > * {
+    margin-bottom: -64px;
+}
+
+.team-radio-container:hover > * {
+    opacity: 1;
+    margin-bottom: 10px;
+}
+
+.team-radio-container:hover .radio-card {
+    opacity: 1;
+}
+
+.radio-card {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    height: 64px;
+    width: 12rem;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, margin 0.3s ease-in-out;
+    animation: fade-in 0.3s; 
+}
+
+.radio-card.hidden {
+    opacity: 0;
+}
+
+
+.radio-card-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 6px;
+    gap: 10px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 8px 8px 0 0;
+}
+
+.radio-card-controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 6px;
+    gap: 10px;
+}
+
+.waveform-container {
+    flex-grow: 1;
+}
+ 
