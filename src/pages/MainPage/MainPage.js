@@ -37,8 +37,10 @@ const MainPage = () => {
     const [timeMarkers, setTimeMarkers] = useState(null);
     const [sectionMarkers, setSectionMarkers] = useState(null);
     const [endTime, setEndTime] = useState(0);
+    const [isTimingBoardVisible, setIsTimingBoardVisible] = useState(false);
     const [isRaceControlVisible, setIsRaceControlVisible] = useState(false);
     const [isTeamRadioVisible, setIsTeamRadioVisible] = useState(false);
+    const [isSettingsVisible, setIsSettingsVisible] = useState(false);
 
 
     // Set the start and end time
@@ -81,11 +83,11 @@ const MainPage = () => {
         <div className="main-page-container">
             <RaceMap/>
 
-            {selectedSession && <TimingBoard/>}
+            {selectedSession && isTimingBoardVisible && <TimingBoard/>}
 
-            {(selectedSession && raceControl) && <RaceControl raceControl={raceControl}/>}
+            {(selectedSession && raceControl && isRaceControlVisible) && <RaceControl raceControl={raceControl}/>}
 
-            {(selectedSession && teamRadio) && <TeamRadio teamRadio={teamRadio}/>}
+            {(selectedSession && teamRadio && isTeamRadioVisible) && <TeamRadio teamRadio={teamRadio}/>}
 
             {selectedDriver && 
             <DriverDetails driver={selectedDriver}/>
@@ -102,14 +104,14 @@ const MainPage = () => {
                 onPlayUpdate={handlePlayUpdate}
             />}
 
-            {/* <Settings/> */}
+            {isSettingsVisible && <Settings/>}
 
             <div className="main-page-options">
                 <SessionSelector/>
                 <div className="main-page-features">
                     <div className="main-page-feature-toggles">
                         {/* Timing */}
-                        <button className="container">
+                        <button className={`container ${isTimingBoardVisible ? "active" : "" }`} onClick={() => setIsTimingBoardVisible(!isTimingBoardVisible)}>
                             <svg 
                                 viewBox="0 0 256 256"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -120,7 +122,7 @@ const MainPage = () => {
                             {"Timing"}
                         </button>
                         {/* Race Control Toggle Button */}
-                        <button className="container" onClick={() => setIsRaceControlVisible(!isRaceControlVisible)}>
+                        <button className={`container ${isRaceControlVisible ? "active" : "" }`} onClick={() => setIsRaceControlVisible(!isRaceControlVisible)}>
                             <svg 
                                 viewBox="0 0 256 256"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -131,7 +133,7 @@ const MainPage = () => {
                             {"Race Control"}
                         </button>
                         {/* Radio Toggle Button */}
-                        <button className="container" onClick={() => setIsRaceControlVisible(!isRaceControlVisible)}>
+                        <button className={`container ${isTeamRadioVisible ? "active" : "" }`} onClick={() => setIsTeamRadioVisible(!isTeamRadioVisible)}>
                             <svg 
                                 viewBox="0 0 256 256"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -144,7 +146,7 @@ const MainPage = () => {
                     </div>
                     <div className="main-page-settings-toggle">
                         {/* Settings Button */}
-                        <button className="container button-settings" onClick={() => setIsRaceControlVisible(!isRaceControlVisible)}>
+                        <button className={`container button-settings ${isSettingsVisible ? "active" : "" }`} onClick={() => setIsSettingsVisible(!isSettingsVisible)}>
                             <svg 
                                 viewBox="0 0 256 256"
                                 xmlns="http://www.w3.org/2000/svg"

@@ -53,7 +53,9 @@ button {
     padding: 8px 4px;
 }
 
-
+button.active {
+    background-color: var(--color-primary);
+}
 
 .button-settings {
     border-radius: 50%;
