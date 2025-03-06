@@ -50,16 +50,15 @@ button {
     height: 32px;
     font-size: 12px;
     white-space: nowrap;
-    margin-top: 0;
-    margin-bottom: 0;
+    padding: 8px 4px;
 }
 
-.button-icon {
-    width: 20px;
-    height: 20px;
-    fill: var(--color-text-primary);
-}
+
 
 .button-settings {
     border-radius: 50%;
+    height: 32px;
+    width: 32px;
+    flex-shrink: 0;
+    flex-grow: 0;
 }

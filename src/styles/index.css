@@ -58,7 +58,7 @@ button {
 }
 
 button:hover {
-  background-color: var(--color-secondary);
+  background-color: var(--color-primary);
 }
 
 .button-round {
@@ -66,6 +66,12 @@ button:hover {
   height: 24px; /* Ensure height and width are equal for round shape */
   font-size: 1rem;
   border-radius: 50%; /* Makes the button round */
+}
+
+.button-icon {
+  width: 20px;
+  height: 20px;
+  fill: var(--color-text-primary);
 }
 
 .item{

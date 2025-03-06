@@ -102,7 +102,7 @@ const MainPage = () => {
                 onPlayUpdate={handlePlayUpdate}
             />}
 
-            <Settings/>
+            {/* <Settings/> */}
 
             <div className="main-page-options">
                 <SessionSelector/>
