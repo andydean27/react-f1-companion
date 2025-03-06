@@ -19,16 +19,16 @@ const Settings = () => {
 
     const defaultSettings = {
         theme: 'dark',
-        broadcastDelay: 5000,
+        broadcastDelay: 30000,
         locationFrequency: 5000,
         locationBuffer: 10000,
-        carDataFrequency: 5500,
-        carDataBuffer: 10000,
-        intervalFrequency: 2000,
-        positionFrequency: 2500,
-        lapFrequency: 3000,
+        carDataFrequency: 10500,
+        carDataBuffer: 20000,
+        intervalFrequency: 5000,
+        positionFrequency: 5000,
+        lapFrequency: 5000,
         stintFrequency: 5000,
-        raceControlFrequency: 2000,
+        raceControlFrequency: 5000,
         teamRadioFrequency: 5000,
         weatherFrequency: 30000,
     };
