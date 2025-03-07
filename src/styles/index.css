@@ -8,11 +8,14 @@
   --color-text-secondary: rgb(214, 228, 235);
 }
 
-[data-theme='dark'] {
-  --color-primary: #0053a0;
-  --color-secondary: #4a4a4a;
-  --color-background: #121212;
-  --color-text-primary: #ffffff;
+[data-theme='light'] {
+  --color-primary: rgb(84, 86, 101);
+  --color-secondary: rgb(46, 53, 59);
+  --color-highlight: rgb(248, 252, 255);
+  --color-background: rgb(248, 252, 255);
+  --color-background-transparent: rgba(248, 252, 255, 0.5);
+  --color-text-primary: rgb(46, 53, 59);
+  --color-text-secondary: rgb(84, 86, 101);
 }
 
 body {

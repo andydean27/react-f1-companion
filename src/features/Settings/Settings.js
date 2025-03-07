@@ -33,6 +33,11 @@ const Settings = () => {
         weatherFrequency: 30000,
     };
 
+    const toggleTheme = (e) => {
+        const newTheme = e.target.value;
+        updateSettings({theme: newTheme});
+        document.documentElement.setAttribute('data-theme', newTheme);
+    }
 
     return (
         <div className="settings-container container">
@@ -40,13 +45,13 @@ const Settings = () => {
                 <h3>Settings</h3>
                 <span className="settings-text">Note: Session will need to be refreshed for settings change to take effect</span>
                 <div className="settings-top">
-                    <select 
+                    {/* <select 
                         value={settings.theme}
-                        onChange={(e) => updateSettings({theme: e.target.value})}
+                        onChange={toggleTheme}
                     >
                         <option value="dark">Dark</option>
                         <option value="light">Light</option>
-                    </select>
+                    </select> */}
                     <button onClick={() => updateSettings(defaultSettings)}>Reset</button>
                 </div>
                 <span>Broadcast Delay</span>

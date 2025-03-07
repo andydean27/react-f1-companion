@@ -16,8 +16,8 @@
 
 .team-radio-container button {
     background-color: transparent;
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     padding: 0;
     margin: 0;
@@ -28,7 +28,7 @@
 }  
 
 .team-radio-container > * {
-    margin-bottom: -64px;
+    margin-bottom: -48px;
 }
 
 .team-radio-container:hover > * {
@@ -44,10 +44,15 @@
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    height: 64px;
+    height: 48px;
     width: 200px;
     transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, margin 0.3s ease-in-out;
     animation: fade-in 0.3s; 
+}
+
+.radio-card span{
+    font-size: 12px;
+    font-weight: bold;
 }
 
 .radio-card.hidden {
@@ -59,7 +64,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 6px;
+    padding: 4px;
     gap: 10px;
     background-color: rgba(0, 0, 0, 0.2);
     border-radius: 8px 8px 0 0;
@@ -70,7 +75,7 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    padding: 6px;
+    padding: 2px 4px;
     gap: 10px;
 }
 

@@ -16,7 +16,7 @@
 }
 
 .race-control-container > * {
-    margin-bottom: -64px;
+    margin-bottom: -48px;
 }
 
 .race-control-container:hover > * {
@@ -65,7 +65,7 @@
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    height: 64px;
+    height: 48px;
     width: 280px;
 }
 
@@ -73,7 +73,7 @@
     display: flex;
     flex-direction: row;
     box-sizing: border-box;
-    height: 32px;
+    height: 24px;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
     border-bottom: 0;
@@ -87,7 +87,7 @@
     display: flex;
     flex-direction: row;
     box-sizing: border-box;
-    height: 32px;
+    height: 24px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     border-top: 0;
@@ -97,7 +97,7 @@
 }
 
 .icon-flag {
-    height: 28px;
+    height: 20px;
     fill: var(--color-highlight);
 }
 
@@ -110,8 +110,8 @@
 .race-control-icon {
     display: flex;
     box-sizing: border-box;
-    width: 64px;
-    height: 64px;
+    width: 48px;
+    height: 48px;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     border-right: 0;
@@ -124,8 +124,8 @@
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    width: calc(100% - 64px);
-    height: 64px;
+    width: calc(100% - 48px);
+    height: 48px;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     border-left: 0;
@@ -134,13 +134,16 @@
 }
 
 .message {
-    font-size: 12px;
+    font-size: 10px;
 }
 
 .title {
     font-weight: bold;
+    font-size: 12px;
 }
 
 .img-fia {
     width: 42px;
 }
+
+
