@@ -4,8 +4,14 @@
     display: flex;
     flex-direction: column-reverse;
     position: absolute;
-    top: 3rem;
-    right: 3rem;
+    top: 80px;
+    right: 16px;
+}
+
+@media (max-width: 600px) {
+    .team-radio-container {
+        top: 128px;
+    }
 }
 
 .team-radio-container button {
@@ -39,7 +45,7 @@
     flex-direction: column;
     box-sizing: border-box;
     height: 64px;
-    width: 12rem;
+    width: 200px;
     transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, margin 0.3s ease-in-out;
     animation: fade-in 0.3s; 
 }

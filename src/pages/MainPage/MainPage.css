@@ -43,7 +43,7 @@
 }
 
 
-button {
+.main-page-feature-toggles button {
     display: flex;
     align-items: center;
     gap: 4px;
@@ -53,7 +53,7 @@ button {
     padding: 8px 4px;
 }
 
-button.active {
+.main-page-feature-toggles button.active {
     background-color: var(--color-primary);
 }
 

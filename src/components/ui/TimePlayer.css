@@ -1,8 +1,10 @@
 .time-player {
     position: absolute;
-    bottom: 20px;
-    left: 10%;
-    width: clamp(300px, 80%, 100%);
+    bottom: 16px;
+    /* left: 10%;
+    width: clamp(300px, 80%, 100%); */
+    left: 16px;
+    width: calc(100% - 48px);
     height: 46px;
     color: var(--color-text-primary);
     display: flex;
@@ -12,10 +14,11 @@
     padding: 0 8px;
 }
 
-@media (max-width: 750px) {
+@media (max-width: 600px) {
     .time-player {
         flex-direction: column-reverse;
-        height: 70px;
+        height: 66px;
+        gap: 0;
     }
 }
 
@@ -71,7 +74,6 @@
     align-items: center;
     justify-content: center;
     font-size: 24px;
-    
 }
 
 .time-player button:hover {
@@ -79,7 +81,7 @@
 }
 
 .time-display {
-    font-size: 1em;
+    font-size: 12px;
     width: 70px;
 }
 

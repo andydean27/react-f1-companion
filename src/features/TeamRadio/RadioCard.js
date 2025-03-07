@@ -41,10 +41,10 @@ const RadioCard = ({ radioMessage, driver, className = "" }) => {
         return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
     };
 
-    // Format date to HH:mm:ss
+    // Format date to UTC HH:mm:ss
     const formatdate = (date) => {
         const dateObj = new Date(date);
-        return dateObj.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        return dateObj.toUTCString().slice(17, 25);
     }
 
     return (
