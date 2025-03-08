@@ -44,13 +44,22 @@ export const generateTimeMarkers = (session, laps, raceControl) => {
                 }
             });
 
+            // Append last chequered flag time to markers as end of last lap
+            markers.push({
+                time: new Date(raceControlFiltered.find((item) => item.flag === "CHEQUERED")?.date).getTime(),
+                lap_number: 0,
+                style: {
+                    height: '10px',
+                }
+            });
+
             // Sort markers by time
             markers.sort((a, b) => a.time - b.time);
 
             return markers;
         }
     } else {
-        // all other sessions mark green and chackered flags from race control
+        // all other sessions mark green and checkered flags from race control
         if (raceControl){
             markers = raceControlFiltered.filter((item) => item.flag === "GREEN" || item.flag === "CHEQUERED").map((item) => {
                 return {
@@ -78,9 +87,13 @@ export const generateSectionMarkers = (session, laps, raceControl) => {
         return null;
     }
 
+    // Get last chequered flag time (there could be multiple in a qualifying session)
+    const lastChequeredFlagTime = new Date(Math.max(...raceControl.filter((item) => item.flag === "CHEQUERED").map((item) => new Date(item.date).getTime())));
+
     // Filter race control data to only flags
     const raceControlFiltered = raceControl.filter((item) => item.category==="Flag" && 
                                                              item.date >= session.date_start && 
+                                                             new Date(item.date).getTime() <= lastChequeredFlagTime &&
                                                              item.driver_number === null); //Ignore driver specific flags
 
     // For each flag get the time of the flag, the next flag and the colour
