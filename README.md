@@ -22,8 +22,8 @@ The React F1 Companion is my first serious attempt at building a React applicati
 
 Make sure you have the following software installed on your machine:
 
-- [Node.js](https://nodejs.org/) (version 14.x or higher)
-- [npm](https://www.npmjs.com/) (version 6.x or higher)
+- [Node.js](https://nodejs.org/)
+- [npm](https://www.npmjs.com/) 
 
 To get started with the React F1 Companion, follow these steps:
 
