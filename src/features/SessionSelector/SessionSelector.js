@@ -31,7 +31,7 @@ const SessionSelector = () => {
     }, []);
 
     // Years dropdown options
-    const years = [...new Set(sessions.map(session => session.year))];
+    const years = [...new Set(sessions?.map(session => session.year))];
 
     // Handle year change
     const handleYearChange = (event) => {
