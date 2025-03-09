@@ -3,7 +3,7 @@
 ## Overview
 This React F1 Companion is my first attempt at building a React application. It aims to enhance the Formula 1 experience by providing additional details not typically available in race broadcasts. Users can view live sessions as well as past sessions from 2023 onwards. All race data is sourced from the [Openf1](https://openf1.org/) API.
 
-![App Demo](./assets/app-demo-480.mov)
+![App Demo](./assets/app-demo-480.gif)
 
 ### Features
 
