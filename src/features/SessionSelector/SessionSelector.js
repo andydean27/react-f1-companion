@@ -24,14 +24,14 @@ const SessionSelector = () => {
         const loadSessionData = async () => {
             const sessionData = await fetchSessionData();
             setSessions(sessionData);
-            setLiveSessionAvailable(sessionData.some((session) => session.end_time < Date.now()));
+            setLiveSessionAvailable(sessionData.some((session) => new Date(session.date_end).getTime() > Date.now()));
         };
 
         loadSessionData();
     }, []);
 
     // Years dropdown options
-    const years = [...new Set(sessions.map(session => session.year))];
+    const years = [...new Set(sessions?.map(session => session.year))];
 
     // Handle year change
     const handleYearChange = (event) => {
@@ -89,14 +89,14 @@ const SessionSelector = () => {
         }
     };
 
-    // Handle refresh button click
-    const handleReloadButtonClick = () => {
-        // Reset selected session to current session to trigger re-render
-        setSelectedSession(null);
-        setTimeout(() => {
-            setSelectedSession(selectedSession);
-        }, 100);
-    };
+    // // Handle refresh button click
+    // const handleReloadButtonClick = () => {
+    //     // Reset selected session to current session to trigger re-render
+    //     setSelectedSession(null);
+    //     setTimeout(() => {
+    //         setSelectedSession(selectedSession);
+    //     }, 100);
+    // };
 
     return (
         <div className="session-selector">
@@ -126,11 +126,18 @@ const SessionSelector = () => {
                 />
             </div>
             <button onClick={handleLiveButtonClick} disabled={!liveSessionAvailable} className="button-live">
-                Live ●
+            <svg 
+                viewBox="0 0 256 256" 
+                xmlns="http://www.w3.org/2000/svg"
+                className="icon-live">
+                <rect fill="none" height="256" width="256"/>
+                <path d="M128,24A104,104,0,1,0,232,128,104.2,104.2,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Z"/>
+                <circle cx="128" cy="128" r="72"/>
+            </svg>
             </button>
-            <button onClick={handleReloadButtonClick} className="button-round">
+            {/* <button onClick={handleReloadButtonClick} className="button-round">
                 &#x21bb;
-            </button>
+            </button> */}
         </div>
     );
 };

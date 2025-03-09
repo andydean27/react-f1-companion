@@ -52,8 +52,8 @@ const DriverDetails = ({ driver }) => {
     return (
         <Rnd
             default={{
-                x: window.innerWidth/2, // Adjust 300 to the width of your component
-                y: window.innerHeight/2 // Adjust 200 to the height of your component
+                x: window.innerWidth/2,
+                y: window.innerHeight/2
             }}
             enableResizing={{
                 top: false,

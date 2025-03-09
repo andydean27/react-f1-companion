@@ -164,6 +164,12 @@ const TimingBoard = () => {
                 );
 
                 updatedDrivers = addFastestLapToDrivers(updatedDrivers);
+
+                // Add fastest lap delta
+                // updatedDrivers = updatedDrivers.map(driver => ({
+                //     ...driver,
+                //     fastest_lap_delta: driver.fastest_lap?.lap_duration - driver.overall_fastest_lap?.lap_duration
+                // }));
             }
 
             if (stintsRef.current) {
@@ -241,15 +247,15 @@ const TimingBoard = () => {
     return (
         <Rnd
             default={{
-                x: 50,
-                y: 100,
+                x: 16,
+                y: 80,
             }}
             size={boardSize}
             onResize={handleResize}
             bounds="parent"
             minHeight={32}
             enableResizing={{
-                top: true,
+                top: false,
                 right: false,
                 bottom: true,
                 left: false,
@@ -257,17 +263,24 @@ const TimingBoard = () => {
                 bottomRight: false,
                 bottomLeft: false,
                 topLeft: false,
-            }} // Allow only vertical resizing
+            }}
+            maxHeight={window.innerHeight - 160}
             className="timing-board container"
         >
             <div className="timing-board-content">
                 <div className="controls">
                     {/* <button className="button-round" onClick={toggleClose}>✕</button> */}
-                    <div className="title">
-                        <h3>Timing</h3>
-                        <h6>{`Lap: ${currentLapNumber || "-"}`}</h6>
-                    </div>
-                    <button className="button-round" onClick={toggleExpanded}>{expanded ? "-" : "+"}</button>
+                    <span className="title">{`Lap: ${currentLapNumber || "-"}`}</span>
+                    <button className="button-round" onClick={toggleExpanded}>
+                        <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" className="button-icon">
+                            <rect fill="none" height="256" width="256"/>
+                            {expanded ?
+                                <path d="M216,136H40a8,8,0,0,1,0-16H216a8,8,0,0,1,0,16Z"/>:
+                                <path d="M216,120H136V40a8,8,0,0,0-16,0v80H40a8,8,0,0,0,0,16h80v80a8,8,0,0,0,16,0V136h80a8,8,0,0,0,0-16Z"/>
+                            }
+                        </svg>
+
+                    </button>
                 </div>
                 <div className="driver-timing-container">
                     <table ref={tableRef} className="timing-table">

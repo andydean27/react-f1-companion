@@ -8,11 +8,14 @@
   --color-text-secondary: rgb(214, 228, 235);
 }
 
-[data-theme='dark'] {
-  --color-primary: #0053a0;
-  --color-secondary: #4a4a4a;
-  --color-background: #121212;
-  --color-text-primary: #ffffff;
+[data-theme='light'] {
+  --color-primary: rgb(84, 86, 101);
+  --color-secondary: rgb(46, 53, 59);
+  --color-highlight: rgb(248, 252, 255);
+  --color-background: rgb(248, 252, 255);
+  --color-background-transparent: rgba(248, 252, 255, 0.5);
+  --color-text-primary: rgb(46, 53, 59);
+  --color-text-secondary: rgb(84, 86, 101);
 }
 
 body {
@@ -44,26 +47,37 @@ h1, h2, h3, h4, h5, h6, div {
 
 
 button {
-  margin: 5px;
+  margin: 4px;
   background-color: var(--color-primary);
   font-size: 1rem;
   color: var(--color-text-primary);
+  box-sizing: border-box;
   border: none; /* No borders */
   display: flex; /* Flexbox for centering content */
   align-items: center; /* Vertically center content */
   justify-content: center; /* Horizontally center content */
   font-size: 16px; /* Adjust text size */
+  transition: background-color 0.3s;
 }
 
 button:hover {
-  background-color: var(--color-secondary);
+  background-color: var(--color-primary);
 }
 
 .button-round {
-  width: 24px; /* Adjust the size of the button */
-  height: 24px; /* Ensure height and width are equal for round shape */
-  font-size: 1rem;
+  width: 20px;
+  height: 20px;
+  color: var(--color-text-primary);
+  background-color: rgba(0,0,0,0);
   border-radius: 50%; /* Makes the button round */
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.button-icon {
+  width: 20px;
+  height: 20px;
+  fill: var(--color-text-primary);
 }
 
 .item{

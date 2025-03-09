@@ -3,3 +3,64 @@
     height: 100%;
     position: absolute;
 }
+.main-page-options {
+    display: flex;
+    flex-direction: row;
+    width: calc(100% - 32px);
+    top: 16px;
+    left: 16px;
+    position: absolute;
+    gap: 8px;
+}
+
+.main-page-features {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.main-page-feature-toggles {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    overflow-x: scroll;
+    flex-shrink: 1;
+}
+
+
+
+@media (max-width: 700px) {
+    .main-page-options {
+        flex-direction: column;
+        
+        left: 16px;
+    }
+}
+
+
+.main-page-feature-toggles button {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: 32px;
+    font-size: 12px;
+    white-space: nowrap;
+    padding: 8px 4px;
+}
+
+.main-page-feature-toggles button.active {
+    background-color: var(--color-primary);
+}
+
+.button-settings {
+    border-radius: 50%;
+    height: 32px;
+    width: 32px;
+    flex-shrink: 0;
+    flex-grow: 0;
+}

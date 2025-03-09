@@ -1,0 +1,149 @@
+
+.race-control-container {
+    display: flex;
+    flex-direction: column-reverse;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 80px;
+    align-items: center;
+}
+
+@media (max-width: 600px) {
+    .race-control-container {
+        top: 128px;
+    }
+}
+
+.race-control-container > * {
+    margin-bottom: -48px;
+}
+
+.race-control-container:hover > * {
+    opacity: 1;
+    margin-bottom: 10px;
+}
+
+.race-control-container:hover .race-control-card {
+    opacity: 1;
+}
+
+.race-control-card {
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    height: fit-content;
+    width: 320px;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, margin 0.3s ease-in-out;
+    animation: fade-in 0.3s; 
+}
+
+.race-control-card.hidden {
+    opacity: 0;
+}
+
+@keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 100;
+    }
+  }
+
+.race-control-card.fade-in {
+    opacity: 1;
+}
+
+.race-control-card.fade-out {
+    opacity: 0;
+}
+
+/* Flag card */
+
+.race-control-card.flag {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    height: 48px;
+    width: 280px;
+}
+
+.flag-card-top {
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    height: 24px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: 0;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.flag-card-bottom {
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    height: 24px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-top: 0;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon-flag {
+    height: 20px;
+    fill: var(--color-highlight);
+}
+
+
+.icon-safety-car {
+    height: 48px;
+    fill: var(--color-highlight);
+}
+
+.race-control-icon {
+    display: flex;
+    box-sizing: border-box;
+    width: 48px;
+    height: 48px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: 0;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.race-control-details {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: calc(100% - 48px);
+    height: 48px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: 0;
+    text-align: left;
+    padding: 4px;
+}
+
+.message {
+    font-size: 10px;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.img-fia {
+    width: 42px;
+}
+
+

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { DriversContext, LocationsContext, CurrentTimeContext, SelectedSessionContext, useDrivers, useCurrentTime, useSelectedDriver } from '../../contexts/Contexts';
+import { DriversContext, LocationsContext, CurrentTimeContext, SelectedSessionContext, useDrivers, useCurrentTime, useSelectedDriver, useSettings } from '../../contexts/Contexts';
 import { Map, Source, Layer } from 'react-map-gl';
 import { GetCurrentLocation } from '../../utils/DriverDataProcessing';
 import { getTrackCoordinates } from '../../config/trackCoordinates';
@@ -23,6 +23,8 @@ const RaceMap = () => {
     const { currentTime } = useCurrentTime();
     const currentTimeRef = useRef(currentTime);
 
+    const {settings } = useSettings();
+
     // States
     const [currentDrivers, setCurrentDrivers] = useState(null);
     const [currentTrack, setCurrentTrack] = useState(null);
@@ -43,55 +45,6 @@ const RaceMap = () => {
         selectedDriverRef.current = selectedDriver;
     }, [selectedDriver]);
 
-    // useEffect(() => {
-    //     locationsRef.current = locations;
-    // }, [locations]);
-
-    // useEffect(() => {
-    //     currentTimeRef.current = currentTime;
-    // }, [currentTime]);
-
-
-    // useEffect(() => {
-    //     if (!selectedSession || !drivers){
-    //         return;
-    //     };
-        
-    //     const updateDriverData = () => {
-    //         // Get track data to use api transformation
-    //         const trackData = getTrackCoordinates(selectedSession.location);
-    //         // Get current location for each driver based on current time
-    //         const updatedDrivers = GetCurrentLocation(driversRef.current, locationsRef.current, currentTimeRef.current, trackData);
-    //         if (updatedDrivers) {
-    //             setCurrentDrivers(
-    //                 updatedDrivers.map(driver => driverToGEOJSON(driver))
-    //             );
-    //         }
-    //     };
-
-    //     const mapIntervalID = setInterval(updateDriverData, 50);
-    //     return () => {
-    //         console.log('Clearing map update interval...');
-    //         clearInterval(mapIntervalID);
-    //     }
-    // }, [selectedSession]);
-
-    // const driverToGEOJSON = (driver) => ({
-    //     type: 'Feature',
-    //     geometry: {
-    //         type: 'Point',
-    //         coordinates: [driver.x, driver.y],
-    //     },
-    //     properties: {
-    //         teamColour: `#${driver.team_colour}`,
-    //     }
-    // });
-
-    // const geojsonDriverData = {
-    //     type: 'FeatureCollection',
-    //     features: currentDrivers,
-    // };
-    
 
     // Effect for map zooming
     useEffect(()=>{
@@ -144,8 +97,9 @@ const RaceMap = () => {
                 zoom: 1,
             }}
             style={{ width: '100%', height: '100%' }}
-            // mapStyle="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json"
-            mapStyle="https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json"
+            mapStyle={settings.theme === "dark" ? 
+                "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json" : 
+                "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json" }
             >
             
 
@@ -157,14 +111,14 @@ const RaceMap = () => {
                         id="track-outline"
                         type="line"
                         paint={{
-                            // 'line-color': '#d5d5d5',
-                            'line-color': '#f55442',
+                            'line-color': '#424757',
+                            // 'line-color': '#f55442',
                             'line-width': [
                                 'interpolate',
                                 ['exponential', 2],
                                 ['zoom'],
-                                10, ["*", 24, ["^", 2, -6]], 
-                                24, ["*", 24, ["^", 2, 8]]
+                                10, ["*", 32, ["^", 2, -6]], 
+                                24, ["*", 32, ["^", 2, 8]]
                             ],
                             'line-opacity': 0.8
                         }}
@@ -174,7 +128,7 @@ const RaceMap = () => {
                         id="track-main"
                         type="line"
                         paint={{
-                            'line-color': '#fdfdfd', // Main line color 
+                            'line-color': '#f8fcff', // Main line color 
                             'line-width': [
                                 'interpolate',
                                 ['exponential', 2],
